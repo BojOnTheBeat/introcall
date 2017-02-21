@@ -4,16 +4,8 @@ Uber for introductions.
 Talk to a human.™
 
 ## Team
-
-### Isa Hassen
-- github: ibnIrshad
-- LinkedIn: https://ca.linkedin.com/in/isahassen
-
-Isa is a 4th year CS specialist at UTSC with extensive high school programming
-experience. 
-
-### Bolaji Fatade
-- github: BojOnTheBeat
+- Isa Hassen
+- Baloji Fatade
 
 ## Description
 
