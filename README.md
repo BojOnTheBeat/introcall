@@ -5,7 +5,7 @@ Talk to a human.™
 
 ## Team
 - Isa Hassen
-- Baloji Fatade
+- Bolaji Fatade
 
 ## Description
 
