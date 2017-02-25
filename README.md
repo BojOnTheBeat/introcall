@@ -1,5 +1,5 @@
-# Introleige
-Uber for introductions.
+# introliege
+Uber for professional introductions.
 
 Talk to a human.™
 
@@ -15,10 +15,10 @@ sign up to be a "consultant", and after being approved, you can earn an income
 just by getting on the phone with people who want to talk to you.
 
 The app will have to handle the profile creation, scheduling, voice/video
-calling, and a rating/reputation system to make the Introleige process work
+calling, and a rating/reputation system to make the introliege process work
 smoothly.
 
-What makes Introleige different from 10k Coffees and other networking/social
+What makes introliege different from 10k Coffees and other networking/social
 websites is that is a *paid* service, intended to create income streams for
 people from all walks of life.
 
@@ -26,21 +26,47 @@ people from all walks of life.
 
 These are the MVP features which need to be working by Mar 12.
 
-- user sign up and login
-- homepage with listing of profiles of people to talk to
-- individual profile page with "schedule call" button
-- scheduling form: clients select time/date of call (must take into account 
-consultant availability and timezone differences)
-- On Call page: consultant and client can join a live audio call at scheduled date/time
+- user sign up and login (through the LinkedIn API only)
 - two separate dashboards for logged-in users: "consultant profile" and "client profile"
-- ability to post consultant profile with picture, text description, keywords
-- ability to post client profile with picture, location, text description, timezone
+- ability to edit consultant profile with picture, text description, keywords,
+current location and timezone
+- ability to edit client profile with picture, location, text description,
+current location and timezone
+- infinite-scrolling homepage with listing of profiles of people to talk to
+- search for profiles by keywords, filter by location, and filter by availability
+ for a particular date/time
+- realtime Call page: clients and consultants can join a room with video calling
+(however scheduling/booking the call will not be implemented yet)
 
 ## Final features
+
+- Timekit.io booking/scheduling integration
+  - ability for consultants to specify their availability by creating timeslots
+on specific days, or recurring timeslots by week/month
+  - client scheduling form: clients select time/date of call (must take into account 
+consultant availability and timezone differences)
+- realtime Call page with text chat (and notifications)
+
 
 ## Tech Stack
 
 - Full Stack Meteor.js (Node, Mongo, Blaze)
+- Passport.js for authentication
 - Twilio API for live audio/video calls
+- Timekit.io for booking/scheduling integration
+
+#### future additions
+
+- Stripe API for payments
+- Segment.io for analytics
+- Sentry for JS error monitoring
+- Intercom for customer support
 
 ## Tech Challenges
+
+- Building a realtime chat room with live video calling and in-app messaging, 
+that works seamlessly on both mobile and desktop
+- Learning the Meteor.js Full Stack Framework, and adapting it to special use
+cases, like a live video call page
+- Integrating lots of external APIs (Timekit, LinkedIn, Twilio, Stripe, 
+Segment, etc.)
