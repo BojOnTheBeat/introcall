@@ -1,4 +1,4 @@
-# introliege
+# Introcall
 Uber for professional introductions.
 
 Talk to a human.™
@@ -15,12 +15,13 @@ sign up to be a "consultant", and after being approved, you can earn an income
 just by getting on the phone with people who want to talk to you.
 
 The app will have to handle the profile creation, scheduling, voice/video
-calling, and a rating/reputation system to make the introliege process work
+calling, and a rating/reputation system to make the Introcall process work
 smoothly.
 
-What makes introliege different from 10k Coffees and other networking/social
+What makes Introcall different from 10k Coffees and other networking/social
 websites is that is a *paid* service, intended to create income streams for
-people from all walks of life.
+people from all walks of life, while giving others a chance to expand their
+professional network.
 
 ## Beta features
 
@@ -46,7 +47,10 @@ on specific days, or recurring timeslots by week/month
   - client scheduling form: clients select time/date of call (must take into account 
 consultant availability and timezone differences)
 - realtime Call page with text chat (and notifications)
-
+- relevant profiles algorithm: similar to Facebook's feed algorithm, we will
+  need to come up with an algorithm that uses analytics/location data to suggest
+  relevant people that you might want to connect with (and show those profiles
+  on the front page)
 
 ## Tech Stack
 
@@ -70,3 +74,5 @@ that works seamlessly on both mobile and desktop
 cases, like a live video call page
 - Integrating lots of external APIs (Timekit, LinkedIn, Twilio, Stripe, 
 Segment, etc.)
+- learning a developing a "relevancy" algorithm, similar to Google's Adwords
+  and Facebook's feed algo.
