@@ -2,9 +2,14 @@
     <title>introcall</title>
 </head>
 
-
 <template name="main">
-    <h1>Introcall</h1>
+    <h1 class="ui header">Introcall</h1>
+    <div class="ui raised segment">
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+            egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet,
+            ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est.
+            Mauris placerat eleifend leo.</p>
+    </div>
     {{> navigation}} {{> yield}}
     <hr />
     <p>Copyright &copy; Introcall, 2016.</p>
@@ -15,30 +20,41 @@
     List of Consultant Profiles
     <ul>
         {{#each cp in cprofiles}}
-        <li>userId: {{cp.userId}}, tagline: {{cp.tagline}}</li>
+            <li>userId: {{cp.userId}}, tagline: {{cp.tagline}}</li>
         {{/each}}
     </ul>
 </template>
 
 <template name="dashboard">
-
 </template>
 
 <template name="register">
     <h2>Sign Up</h2>
     <form class="register">
-        <p>Email: <input type="email" name="email"></p>
-        <p>Password: <input type="password" name="password"></p>
-        <p><input type="submit" value="Register"></p>
+        <p>Email:
+            <input type="email" name="email">
+        </p>
+        <p>Password:
+            <input type="password" name="password">
+        </p>
+        <p>
+            <input type="submit" value="Register">
+        </p>
     </form>
 </template>
 
 <template name="login">
     <h2>Login</h2>
     <form class="login">
-        <p>Email: <input type="email" name="email"></p>
-        <p>Password: <input type="password" name="password"></p>
-        <p><input type="submit" value="Login"></p>
+        <p>Email:
+            <input type="email" name="email">
+        </p>
+        <p>Password:
+            <input type="password" name="password">
+        </p>
+        <p>
+            <input type="submit" value="Login">
+        </p>
     </form>
 </template>
 
@@ -46,10 +62,10 @@
     <ul>
         <li><a href="{{pathFor route='home'}}">Home</a></li>
         {{#if currentUser}}
-        <li><a href="#" class="logout">Logout</a></li>
+            <li><a href="#" class="logout">Logout</a></li>
         {{else}}
-        <li><a href="{{pathFor route='register'}}">Register</a></li>
-        <li><a href="{{pathFor route='login'}}">Login</a></li>
+            <li><a href="{{pathFor route='register'}}">Register</a></li>
+            <li><a href="{{pathFor route='login'}}">Login</a></li>
         {{/if}}
     </ul>
 </template>
