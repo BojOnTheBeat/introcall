@@ -1,23 +1,30 @@
-import {
-    Template
-} from 'meteor/templating';
-import {
-    ReactiveVar
-} from 'meteor/reactive-var';
 
-import './main.html';
 
 Router.route('/', {
     name: 'home',
     template: 'home'
 });
 
+
 Router.configure({
-    layoutTemplate: 'main'
+    layoutTemplate: 'main',
+    data: function() {
+        return {
+            user: Meteor.user(),
+            cprofiles: ConsultantProfiles.find()
+        }
+    }
 });
+
 
 Router.route('/register');
 Router.route('/login');
+
+Template.home.onCreated(function() {
+    this.autorun(() => {
+        this.subscribe('consultants.public');
+    })
+});
 
 Template.register.events({
     'submit form': function (e) {

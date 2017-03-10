@@ -1,20 +1,28 @@
 <head>
-  <title>introcall</title>
+    <title>introcall</title>
 </head>
 
 
 <template name="main">
     <h1>Introcall</h1>
-    {{> navigation}}
-    {{> yield}}
+    {{> navigation}} {{> yield}}
     <hr />
     <p>Copyright &copy; Introcall, 2016.</p>
 </template>
 
 <template name="home">
     <p>Welcome to Introcall.</p>
+    List of Consultant Profiles
+    <ul>
+        {{#each cp in cprofiles}}
+        <li>userId: {{cp.userId}}, tagline: {{cp.tagline}}</li>
+        {{/each}}
+    </ul>
 </template>
 
+<template name="dashboard">
+
+</template>
 
 <template name="register">
     <h2>Sign Up</h2>
@@ -38,14 +46,10 @@
     <ul>
         <li><a href="{{pathFor route='home'}}">Home</a></li>
         {{#if currentUser}}
-          <li><a href="#" class="logout">Logout</a></li>
+        <li><a href="#" class="logout">Logout</a></li>
         {{else}}
-          <li><a href="{{pathFor route='register'}}">Register</a></li>
-          <li><a href="{{pathFor route='login'}}">Login</a></li>
+        <li><a href="{{pathFor route='register'}}">Register</a></li>
+        <li><a href="{{pathFor route='login'}}">Login</a></li>
         {{/if}}
     </ul>
 </template>
-
-
-
-
