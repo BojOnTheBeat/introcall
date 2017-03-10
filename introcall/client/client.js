@@ -2,7 +2,7 @@
 
 Router.route('/', {
     name: 'home',
-    template: 'home'
+    layoutTemplate: 'home'
 });
 
 
