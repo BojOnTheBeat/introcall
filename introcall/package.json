@@ -9,6 +9,7 @@
     "bcrypt": "^1.0.2",
     "gulp": "^3.9.1",
     "meteor-node-stubs": "~0.2.4",
-    "semantic-ui": "^2.2.9"
+    "semantic-ui": "^2.2.9",
+    "twilio-video": "^1.0.0-beta4"
   }
 }
