@@ -27,7 +27,7 @@ professional network.
 
 These are the MVP features which need to be working by Mar 12.
 
-- user sign up and login (through the LinkedIn API only)
+- user sign up and login
 - two separate dashboards for logged-in users: "consultant profile" and "client profile"
 - ability to edit consultant profile with picture, text description, keywords,
 current location and timezone
