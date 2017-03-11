@@ -1,4 +1,5 @@
 ConsultantProfiles = new Mongo.Collection('consultantprofiles');
+Dashboards = new Mongo.Collection('dashboards'); //Call this profiles instead?
 
 ConsultantProfiles.schema = new SimpleSchema({
     userId: {
@@ -23,3 +24,40 @@ ConsultantProfiles.schema = new SimpleSchema({
 });
 
 ConsultantProfiles.attachSchema(ConsultantProfiles.schema);
+
+Dashboards.schema = new SimpleSchema({
+    userId: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+
+    name: { // Split into first and last names?
+        type: String,
+        min: 4
+
+    },
+
+    email: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Email
+
+    },
+
+    phoneNumber: {
+        type: String, //Is there a better way to validate this?
+        min: 10
+
+    },
+
+    avatarUrl: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Url, //TODO: need to prevent CSRF attacks on this
+        label: "Avatar URL",
+        autoValue: function() {
+            return 'http://placehold.it/120x120'
+        }
+    },
+
+});
+
+Dashboards.attachSchema(Dashboards.schema);

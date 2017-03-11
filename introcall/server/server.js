@@ -3,5 +3,24 @@ Meteor.startup(() => {
 
     Meteor.publish('consultants.public', function() {
         return ConsultantProfiles.find();
-    })
+    });
+
+
+    Meteor.methods({
+    	'updateProfile' : function(profile){
+
+    		var currentUser = Meteor.userId();
+    		if(!currentUser){
+        		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
+    		}
+    		Dashboards.update({userId: currentUser}, 
+    						  {$set: 
+    								{name: profile.name,
+    								 userId: currentUser, 
+    								 phoneNumber: profile.phoneNumber, 
+    								 email: profile.email} }, 
+    						  {multi: false, upsert: true});
+
+    	},
+    });
 });

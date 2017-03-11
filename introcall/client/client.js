@@ -19,6 +19,7 @@ Router.configure({
 
 Router.route('/register');
 Router.route('/login');
+Router.route('/dashboard');
 
 Template.home.onCreated(function() {
     this.autorun(() => {
@@ -46,6 +47,8 @@ Template.register.events({
 
     },
 });
+
+
 
 Template.navigation.events({
     'click .logout': function (event) {
