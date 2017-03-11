@@ -1,5 +1,4 @@
 
-
 Router.route('/', {
     name: 'home',
     layoutTemplate: 'home'
@@ -20,6 +19,8 @@ Router.configure({
 Router.route('/register');
 Router.route('/login');
 Router.route('/dashboard');
+Router.route('/joincall');
+
 
 Template.home.onCreated(function() {
     this.autorun(() => {
@@ -72,3 +73,73 @@ Template.login.events({
         });
     }
 });
+
+var videoClient;
+var activeRoom;
+var previewMedia;
+var identity;
+var roomName;
+
+
+//TODO: One-On-One calling instead of room-style
+Template.joincall.onCreated(function() {
+    identity = 'boj';
+
+    //TODO: Autogenerate via server.
+    videoClient = new Twilio.Video.Client('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhLTE0ODkyNzM5NjAiLCJpc3MiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhIiwic3ViIjoiQUNhZjYzZmQ4NGM5YWIyNzI3NjZkOTdiZGJiNjlmYTNkOSIsImV4cCI6MTQ4OTI3NzU2MCwiZ3JhbnRzIjp7ImlkZW50aXR5IjoiYm9qIiwicnRjIjp7ImNvbmZpZ3VyYXRpb25fcHJvZmlsZV9zaWQiOiJWUzU3NDI3MjZlNDk5Yzk5MzYwYjYwNmRmNmYwZTdkNTY1In19fQ.QPLVc7Tr60yWNlS_cdcLKuTFTamfA2DJWcLVU2VtnBw');
+    roomName = 'Ayye'
+
+    console.log('ayye');
+    videoClient.connect({ to: roomName}).then(roomJoined,
+        function(error) {
+          console.log('Could not connect to Twilio: ' + error.message);
+        });
+
+
+
+});
+
+function roomJoined(room){
+    activeRoom = room;
+    console.log("Joined as '" + identity + "'");
+
+    // Show local video, if not already previewing
+    if (!previewMedia) {
+        room.localParticipant.media.attach('#local-media');
+    }
+
+    room.participants.forEach(function(participant) {
+        console.log("Already in Room: '" + participant.identity + "'");
+        participant.media.attach('#remote-media');
+    });
+
+    // When a participant joins, show their video on screen
+    room.on('participantConnected', function (participant) {
+        console.log("Joining: '" + participant.identity + "'");
+        participant.media.attach('#remote-media');
+    });
+
+    // When a participant disconnects, note in log
+    room.on('participantDisconnected', function (participant) {
+        console.log("Participant '" + participant.identity + "' left the room");
+        participant.media.detach();
+    });
+
+    // When we are disconnected, stop capturing local video
+    // Also remove media for all remote participants
+    room.on('disconnected', function () {
+        console.log('Left');
+        room.localParticipant.media.detach();
+        room.participants.forEach(function(participant) {
+            participant.media.detach();
+        });
+        activeRoom = null;
+  });
+}
+
+
+
+
+
+
+
