@@ -14,12 +14,12 @@ Meteor.startup(() => {
         		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
     		}
     		Dashboards.update({userId: currentUser}, 
-    						  {$set: 
-    								{name: profile.name,
-    								 userId: currentUser, 
-    								 phoneNumber: profile.phoneNumber, 
-    								 email: profile.email} }, 
-    						  {multi: false, upsert: true});
+    			{$set: 
+    				{name: profile.name,
+    				 userId: currentUser,
+    				  phoneNumber: profile.phoneNumber,
+    				   email: profile.email} },
+    			{multi: false, upsert: true});
 
     	},
     });
