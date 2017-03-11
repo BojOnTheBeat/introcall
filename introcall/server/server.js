@@ -7,13 +7,13 @@ Meteor.startup(() => {
 
 
     Meteor.methods({
-    	'updateProfile' : function(profile){
+    	'user.updateProfile' : function(profile){
 
     		var currentUser = Meteor.userId();
     		if(!currentUser){
         		throw new Meteor.Error("not-logged-in", "You're not logged-in.");
     		}
-    		Dashboards.update({userId: currentUser}, 
+    		UserProfile.update({userId: currentUser}, 
     			{$set: 
     				{name: profile.name,
     				 userId: currentUser,

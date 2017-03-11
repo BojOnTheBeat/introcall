@@ -1,5 +1,5 @@
 ConsultantProfiles = new Mongo.Collection('consultantprofiles');
-Dashboards = new Mongo.Collection('dashboards'); //Call this profiles instead?
+UserProfile = new Mongo.Collection('UserProfile');
 
 ConsultantProfiles.schema = new SimpleSchema({
     userId: {
@@ -25,7 +25,7 @@ ConsultantProfiles.schema = new SimpleSchema({
 
 ConsultantProfiles.attachSchema(ConsultantProfiles.schema);
 
-Dashboards.schema = new SimpleSchema({
+UserProfile.schema = new SimpleSchema({
     userId: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
@@ -60,4 +60,4 @@ Dashboards.schema = new SimpleSchema({
 
 });
 
-Dashboards.attachSchema(Dashboards.schema);
+UserProfile.attachSchema(UserProfile.schema);
