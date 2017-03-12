@@ -169,14 +169,37 @@
 
         </div>
 
-        <div class="ui vertical stripe segment">
-            <p>Welcome to Introcall.</p>
-            List of Consultant Profiles
-            <ul>
+        <div class="ui vertical stripe segment container">
+            <h2>Search for Profiles</h2>
+
+            <div class="ui special cards">
                 {{#each cp in cprofiles}}
-                    <li>userId: {{cp.userId}}, tagline: {{cp.tagline}}</li>
+                    <div class="card">
+                        <div class="blurring dimmable image">
+                            <div class="ui dimmer">
+                                <div class="content">
+                                    <div class="center">
+                                        <div class="ui inverted button">Set up a call</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <img src="{{cp.avatarUrl}}">
+                        </div>
+                        <div class="content">
+                            <a class="header">{{cp._id}}</a>
+                            <div class="meta">
+                                <span class="date">Create in Sep 2014</span>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a>
+                                <i class="users icon"></i> 133 meetings
+                            </a>
+                        </div>
+                    </div>
                 {{/each}}
-            </ul>
+            </div>
+
         </div>
 
         <div class="ui inverted vertical footer segment">
@@ -219,7 +242,6 @@
     <div id="remote-media"></div>
     <div id="local-media"></div>
 </template>
-
 
 <template name="register">
 
