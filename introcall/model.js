@@ -88,7 +88,8 @@ UserProfile.schema = new SimpleSchema({
 
     timezone: {
         type: Object,
-        allowedValues: VALIDTIMEZONES
+        allowedValues: VALIDTIMEZONES,
+        optional: true
     },
 
     phoneNumber: {

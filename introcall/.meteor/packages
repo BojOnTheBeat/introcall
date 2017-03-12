@@ -22,6 +22,7 @@ accounts-password
 accounts-google
 google-config-ui
 iron:router
-aldeed:simple-schema
 aldeed:collection2
 standard-minifier-css
+aldeed:autoform
+aldeed:simple-schema

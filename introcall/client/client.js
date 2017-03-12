@@ -18,6 +18,11 @@ Router.route('/register');
 Router.route('/login');
 Router.route('/dashboard');
 Router.route('/joincall');
+Router.route('/profile');
+// Router.route('/dashboard/profile', {
+//     name: 'dashboardProfile',
+//     layoutTemplate: 'main'
+// });
 
 
 Template.home.onCreated(function() {
@@ -67,7 +72,6 @@ Template.navigation.helpers({
         return Meteor.user();
     },
     
-    //change to a meteor method later
     profiles: function(){
         var assoc = ConsultantProfiles.find({userId: Meteor.userId()});
         return assoc;
@@ -92,6 +96,26 @@ Template.login.events({
             }
         });
     }
+});
+
+Template.profile.events({
+    'submit form': function(event) {
+        event.preventDefault();
+        var profile = {}
+
+        profile.name = $('[name=name]').val();
+        profile.email = $('[name=email]').val();
+        profile.currentLocation = $('[name=currentLocation]').val();
+        timezone = $('[name=timezone]').val();
+        //profile.timezone = new
+        profile.phoneNumber = $('[name=phoneNumber]').val();
+
+        console.log(profile);
+
+        Meteor.call('user.updateProfile', profile);
+        //Meteor update
+    }
+
 });
 
 var videoClient;

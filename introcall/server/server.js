@@ -8,6 +8,7 @@ Meteor.startup(() => {
 
     Meteor.methods({
     	'user.updateProfile' : function(profile){
+    		console.log(profile);
 
     		var currentUser = Meteor.userId();
     		if(!currentUser){
@@ -17,8 +18,10 @@ Meteor.startup(() => {
     			{$set: 
     				{name: profile.name,
     				 userId: currentUser,
-    				  phoneNumber: profile.phoneNumber,
-    				   email: profile.email} },
+    				 currentLocation: profile.currentLocation,
+    				 timezone: profile.timezone,
+    				 phoneNumber: profile.phoneNumber,
+    				 email: profile.email} },
     			{multi: false, upsert: true});
 
     	},
