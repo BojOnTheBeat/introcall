@@ -172,6 +172,19 @@
         <div class="ui vertical stripe segment container">
             <h2>Search for Profiles</h2>
 
+            <div class="ui grid">
+                <div class="six wide column">
+                    <select id="kfilter" class="ui fluid search dropdown" multiple=""
+                            onchange="Session.set('kfilter', $(this).val())">
+
+                        <option value="">filter by keywords</option>
+                        {{#each k in keywords}}
+                            <option value="{{k.word}}">{{k.word}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
             <div class="ui special cards">
                 {{#each cp in cprofiles}}
                     <div class="card">

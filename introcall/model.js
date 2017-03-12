@@ -9,7 +9,9 @@ Keywords.schema = new SimpleSchema({
     word: {
         type: String,
         min: 2,
-        max: 15
+        max: 15,
+        index:true,
+        unique: true
     }
 })
 

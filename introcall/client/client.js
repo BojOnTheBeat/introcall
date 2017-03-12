@@ -1,15 +1,29 @@
-
 Router.route('/', {
     name: 'home',
-    layoutTemplate: 'home'
+    layoutTemplate: 'home',
+    data: function() {
+
+        var kfilter = {};
+        if (Session.get('kfilter') && Session.get('kfilter').length) {
+            kfilter = {
+                keywords: {
+                    $in: Session.get('kfilter')
+                }
+            };
+        }
+        
+        return {
+            keywords: Keywords.find(),
+            cprofiles: ConsultantProfiles.find(kfilter)
+        }
+    }
 });
 
 Router.configure({
     layoutTemplate: 'main',
     data: function() {
         return {
-            user: Meteor.user(),
-            cprofiles: ConsultantProfiles.find()
+            user: Meteor.user()
         }
     }
 });
@@ -19,10 +33,10 @@ Router.route('/login');
 Router.route('/dashboard');
 Router.route('/joincall');
 
-
 Template.home.onCreated(function() {
     this.autorun(() => {
         this.subscribe('consultants.public');
+        this.subscribe('keywords.public');
     })
 });
 
@@ -66,15 +80,19 @@ Template.navigation.helpers({
     currentUser: function() {
         return Meteor.user();
     },
-    
+
     //change to a meteor method later
-    profiles: function(){
-        var assoc = ConsultantProfiles.find({userId: Meteor.userId()});
+    profiles: function() {
+        var assoc = ConsultantProfiles.find({
+            userId: Meteor.userId()
+        });
         return assoc;
     },
 
-    defaultProfile: function(){
-        var assoc1 = ConsultantProfiles.find({userId: Meteor.userId()});
+    defaultProfile: function() {
+        var assoc1 = ConsultantProfiles.find({
+            userId: Meteor.userId()
+        });
         return assoc1[0];
     }
 })
@@ -100,24 +118,25 @@ var previewMedia;
 var identity;
 var roomName;
 
-
 Template.joincall.onCreated(function() {
     identity = 'boj';
 
     //TODO: Autogenerate via server.
-    videoClient = new Twilio.Video.Client('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhLTE0ODkyNzM5NjAiLCJpc3MiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhIiwic3ViIjoiQUNhZjYzZmQ4NGM5YWIyNzI3NjZkOTdiZGJiNjlmYTNkOSIsImV4cCI6MTQ4OTI3NzU2MCwiZ3JhbnRzIjp7ImlkZW50aXR5IjoiYm9qIiwicnRjIjp7ImNvbmZpZ3VyYXRpb25fcHJvZmlsZV9zaWQiOiJWUzU3NDI3MjZlNDk5Yzk5MzYwYjYwNmRmNmYwZTdkNTY1In19fQ.QPLVc7Tr60yWNlS_cdcLKuTFTamfA2DJWcLVU2VtnBw');
+    videoClient = new Twilio.Video.Client(
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhLTE0ODkyNzM5NjAiLCJpc3MiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhIiwic3ViIjoiQUNhZjYzZmQ4NGM5YWIyNzI3NjZkOTdiZGJiNjlmYTNkOSIsImV4cCI6MTQ4OTI3NzU2MCwiZ3JhbnRzIjp7ImlkZW50aXR5IjoiYm9qIiwicnRjIjp7ImNvbmZpZ3VyYXRpb25fcHJvZmlsZV9zaWQiOiJWUzU3NDI3MjZlNDk5Yzk5MzYwYjYwNmRmNmYwZTdkNTY1In19fQ.QPLVc7Tr60yWNlS_cdcLKuTFTamfA2DJWcLVU2VtnBw'
+    );
     roomName = 'Ayye' //TODO: Change this
 
-    videoClient.connect({ to: roomName}).then(roomJoined,
+    videoClient.connect({
+        to: roomName
+    }).then(roomJoined,
         function(error) {
-          console.log('Could not connect to Twilio: ' + error.message);
+            console.log('Could not connect to Twilio: ' + error.message);
         });
-
-
 
 });
 
-function roomJoined(room){
+function roomJoined(room) {
     activeRoom = room;
     console.log("Joined as '" + identity + "'");
 
@@ -132,32 +151,25 @@ function roomJoined(room){
     });
 
     // When a participant joins, show their video on screen
-    room.on('participantConnected', function (participant) {
+    room.on('participantConnected', function(participant) {
         console.log("Joining: '" + participant.identity + "'");
         participant.media.attach('#remote-media');
     });
 
     // When a participant disconnects, note in log
-    room.on('participantDisconnected', function (participant) {
+    room.on('participantDisconnected', function(participant) {
         console.log("Participant '" + participant.identity + "' left the room");
         participant.media.detach();
     });
 
     // When we are disconnected, stop capturing local video
     // Also remove media for all remote participants
-    room.on('disconnected', function () {
+    room.on('disconnected', function() {
         console.log('Left');
         room.localParticipant.media.detach();
         room.participants.forEach(function(participant) {
             participant.media.detach();
         });
         activeRoom = null;
-  });
+    });
 }
-
-
-
-
-
-
-
