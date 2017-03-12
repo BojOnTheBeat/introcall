@@ -65,6 +65,17 @@ Template.navigation.onRendered(function() {
 Template.navigation.helpers({
     currentUser: function() {
         return Meteor.user();
+    },
+    
+    //change to a meteor method later
+    profiles: function(){
+        var assoc = ConsultantProfiles.find({userId: Meteor.userId()});
+        return assoc;
+    },
+
+    defaultProfile: function(){
+        var assoc1 = ConsultantProfiles.find({userId: Meteor.userId()});
+        return assoc1[0];
     }
 })
 
@@ -90,15 +101,13 @@ var identity;
 var roomName;
 
 
-//TODO: One-On-One calling instead of room-style
 Template.joincall.onCreated(function() {
     identity = 'boj';
 
     //TODO: Autogenerate via server.
     videoClient = new Twilio.Video.Client('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhLTE0ODkyNzM5NjAiLCJpc3MiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhIiwic3ViIjoiQUNhZjYzZmQ4NGM5YWIyNzI3NjZkOTdiZGJiNjlmYTNkOSIsImV4cCI6MTQ4OTI3NzU2MCwiZ3JhbnRzIjp7ImlkZW50aXR5IjoiYm9qIiwicnRjIjp7ImNvbmZpZ3VyYXRpb25fcHJvZmlsZV9zaWQiOiJWUzU3NDI3MjZlNDk5Yzk5MzYwYjYwNmRmNmYwZTdkNTY1In19fQ.QPLVc7Tr60yWNlS_cdcLKuTFTamfA2DJWcLVU2VtnBw');
-    roomName = 'Ayye'
+    roomName = 'Ayye' //TODO: Change this
 
-    console.log('ayye');
     videoClient.connect({ to: roomName}).then(roomJoined,
         function(error) {
           console.log('Could not connect to Twilio: ' + error.message);
