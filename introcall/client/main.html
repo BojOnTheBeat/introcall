@@ -116,7 +116,7 @@
             {{> navigation}}
         </div>
 
-        <div class="ui vertical stripe segment">
+        <div class="ui vertical stripe segment container">
             {{ > yield}}
         </div>
 
@@ -192,7 +192,7 @@
                             <div class="ui dimmer">
                                 <div class="content">
                                     <div class="center">
-                                        <div class="ui inverted button">Set up a call</div>
+                                        <a class="ui inverted button" href="/joincall">Set up a call</a>
                                     </div>
                                 </div>
                             </div>
@@ -251,9 +251,7 @@
 </template>
 
 <template name="joincall">
-    <script src="//media.twiliocdn.com/sdk/js/video/v1/twilio-video.min.js"></script>
-    <div id="remote-media"></div>
-    <div id="local-media"></div>
+    <iframe src="https://appear.in/introcall.io-sandbox" width="800" height="640" frameborder="0"></iframe>
 </template>
 
 <template name="register">

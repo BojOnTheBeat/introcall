@@ -11,7 +11,7 @@ Router.route('/', {
                 }
             };
         }
-        
+
         return {
             keywords: Keywords.find(),
             cprofiles: ConsultantProfiles.find(kfilter)
@@ -39,6 +39,11 @@ Router.route('/profile');
 // });
 
 Template.home.onCreated(function() {
+    Meteor.setTimeout(function() {
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
+    }, 500);
     this.autorun(() => {
         this.subscribe('consultants.public');
         this.subscribe('keywords.public');
@@ -76,16 +81,14 @@ Template.navigation.events({
 
 Template.navigation.onRendered(function() {
     Meteor.setTimeout(function() {
-        console.log('running');
         $('.dropdown').dropdown();
-    }, 500)
+    }, 500);
 })
 
 Template.navigation.helpers({
     currentUser: function() {
         return Meteor.user();
     },
-
 
     //change to a meteor method later
     profiles: function() {
@@ -139,20 +142,20 @@ var identity;
 var roomName;
 
 Template.joincall.onCreated(function() {
-    identity = 'boj';
+    // identity = 'boj';
 
-    //TODO: Autogenerate via server.
-    videoClient = new Twilio.Video.Client(
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhLTE0ODkyNzM5NjAiLCJpc3MiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhIiwic3ViIjoiQUNhZjYzZmQ4NGM5YWIyNzI3NjZkOTdiZGJiNjlmYTNkOSIsImV4cCI6MTQ4OTI3NzU2MCwiZ3JhbnRzIjp7ImlkZW50aXR5IjoiYm9qIiwicnRjIjp7ImNvbmZpZ3VyYXRpb25fcHJvZmlsZV9zaWQiOiJWUzU3NDI3MjZlNDk5Yzk5MzYwYjYwNmRmNmYwZTdkNTY1In19fQ.QPLVc7Tr60yWNlS_cdcLKuTFTamfA2DJWcLVU2VtnBw'
-    );
-    roomName = 'Ayye' //TODO: Change this
+    // //TODO: Autogenerate via server.
+    // videoClient = new Twilio.Video.Client(
+    //     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhLTE0ODkyNzM5NjAiLCJpc3MiOiJTS2JjMjJhNDgzOWQ5N2YzZjIyYWI4NzYwNzViMjlhZjZhIiwic3ViIjoiQUNhZjYzZmQ4NGM5YWIyNzI3NjZkOTdiZGJiNjlmYTNkOSIsImV4cCI6MTQ4OTI3NzU2MCwiZ3JhbnRzIjp7ImlkZW50aXR5IjoiYm9qIiwicnRjIjp7ImNvbmZpZ3VyYXRpb25fcHJvZmlsZV9zaWQiOiJWUzU3NDI3MjZlNDk5Yzk5MzYwYjYwNmRmNmYwZTdkNTY1In19fQ.QPLVc7Tr60yWNlS_cdcLKuTFTamfA2DJWcLVU2VtnBw'
+    // );
+    // roomName = 'Ayye' //TODO: Change this
 
-    videoClient.connect({
-        to: roomName
-    }).then(roomJoined,
-        function(error) {
-            console.log('Could not connect to Twilio: ' + error.message);
-        });
+    // videoClient.connect({
+    //     to: roomName
+    // }).then(roomJoined,
+    //     function(error) {
+    //         console.log('Could not connect to Twilio: ' + error.message);
+    //     });
 
 });
 
