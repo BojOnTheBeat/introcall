@@ -1,5 +1,19 @@
+import 'timezones.json';
+const VALIDTIMEZONES = require('timezones.json');
+
 ConsultantProfiles = new Mongo.Collection('consultantprofiles');
 UserProfile = new Mongo.Collection('UserProfile');
+Keywords = new Mongo.Collection('Keywords');
+
+Keywords.schema = new SimpleSchema({
+    word: {
+        type: String,
+        min: 2,
+        max: 15
+    }
+})
+
+Keywords.attachSchema(Keywords.schema);
 
 ConsultantProfiles.schema = new SimpleSchema({
     userId: {
@@ -16,10 +30,34 @@ ConsultantProfiles.schema = new SimpleSchema({
         }
     },
 
+    displayName: {
+        type: String,
+        min: 3,
+        max: 20
+    },
+
+    company: {
+        type: String,
+        optional: true,
+        min: 3,
+        max: 20,
+    },
+
     tagline: {
         type: String,
         min: 3,
         max: 140
+    },
+
+    description: {
+        type: String,
+        min: 140,
+        max: 700
+    },
+
+    keywords: {
+        type: [String],
+        minCount: 1
     }
 });
 
@@ -41,6 +79,16 @@ UserProfile.schema = new SimpleSchema({
         type: String,
         regEx: SimpleSchema.RegEx.Email
 
+    },
+
+    currentLocation: {
+        type: String,
+        max: 300
+    },
+
+    timezone: {
+        type: Object,
+        allowedValues: VALIDTIMEZONES
     },
 
     phoneNumber: {
