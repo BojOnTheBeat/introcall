@@ -80,6 +80,11 @@ Template.navigation.onRendered(function() {
         $('.dropdown').dropdown();
     }, 500)
 })
+Template.navigation.onCreated(function() {
+    this.autorun(() => {
+        this.subscribe('consultants.public');
+    })
+});
 
 Template.navigation.helpers({
     currentUser: function() {
