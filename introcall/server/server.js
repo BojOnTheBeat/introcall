@@ -1,7 +1,7 @@
 Meteor.startup(() => {
     console.log('Introcall Server Started.');
 
-	Keywords.insert({word: "sales"});
+	//Keywords.insert({word: "sales"});
 		
     Meteor.publish('consultants.public', function() {
         return ConsultantProfiles.find();
@@ -9,6 +9,10 @@ Meteor.startup(() => {
 
 	Meteor.publish('keywords.public', function() {
         return Keywords.find();
+    });
+
+	Meteor.publish('user.private', function() {
+        return UserProfile.find();
     });
 
     Meteor.methods({

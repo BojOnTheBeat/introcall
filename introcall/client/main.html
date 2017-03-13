@@ -286,29 +286,35 @@
 </template>
 
 <template name="profile">
-<h2>Profile</h2>
-    <form class="profile">
-        <p>Name:
-            <input type = "text" name = "name">
-        </p>
-        <p>Email:
-            <input type="email" name="email">
-        </p>
-        <p>CurrentLocation:
-            <input type="text" name="currentLocation">
-        </p>
-        <p>timezone:
-            <input type="text" name="timezone">
-        </p>
-        <p>phoneNumber:
-            <input type="text" name="phoneNumber">
-        </p>
+{{#if currentUser}}
+    <h2>Profile</h2>
+    
+        <form class="profile">
+            <p>Name:
+                <input type = "text" name = "name" value={{formData.name}}>
+            </p>
+            <p>Email:
+                <input type="email" name="email" value={{formData.email}}>
+            </p>
+            <p>CurrentLocation:
+                <input type="text" name="currentLocation" value={{formData.currentLocation}}>
+            </p>
+            <p>timezone:
+                <input type="text" name="timezone">
+            </p>
+            <p>phoneNumber:
+                <input type="text" name="phoneNumber" value={{formData.phoneNumber}}>
+            </p>
 
-        <p>
-            <input type="submit" value="Submit">
-        </p>
-
-    </form>
+            <p>
+                <input type="submit" value="Submit">
+            </p>
+        </form>
+{{else}}
+    <a class="ui inverted button" href="{{pathFor route='login'}}">Log in</a>
+    <a class="ui inverted button" href="{{pathFor route='register'}}">Sign Up</a>
+{{/if}}
+  
 </template>
 
 <template name="navigation">

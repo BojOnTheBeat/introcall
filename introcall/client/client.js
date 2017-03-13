@@ -33,10 +33,6 @@ Router.route('/login');
 Router.route('/dashboard');
 Router.route('/joincall');
 Router.route('/profile');
-// Router.route('/dashboard/profile', {
-//     name: 'dashboardProfile',
-//     layoutTemplate: 'main'
-// });
 
 Template.home.onCreated(function() {
     Meteor.setTimeout(function() {
@@ -118,6 +114,21 @@ Template.login.events({
             }
         });
     }
+});
+
+Template.profile.onCreated(function() {
+    this.autorun(() => {
+        this.subscribe('user.private');
+    })
+});
+
+Template.profile.helpers({
+    formData: function(){
+        return UserProfile.findOne({userId: Meteor.userId()})
+    },
+    currentUser: function() {
+        return Meteor.user();
+    },
 });
 
 Template.profile.events({
