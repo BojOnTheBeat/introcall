@@ -199,7 +199,7 @@
                             <img src="{{cp.avatarUrl}}">
                         </div>
                         <div class="content">
-                            <a class="header">{{cp._id}}</a>
+                            <a class="header">{{cp.displayName}}</a>
                             <div class="meta">
                                 <span class="date">Create in Sep 2014</span>
                             </div>
@@ -343,7 +343,7 @@
                             {{#each cp in profiles}}
                                 <div class="item">
                                     <img class="ui avatar image" src= {{cp.avatarUrl}} >
-                                    {{cp.userId}}
+                                    {{cp.displayName}}
                                 </div>
                             {{/each}}
 
