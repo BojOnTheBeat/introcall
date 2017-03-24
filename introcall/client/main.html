@@ -1,9 +1,9 @@
 <head>
     <title>introcall</title>
-    <link rel="stylesheet" type="text/css" href="semantic-dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/semantic-dist/semantic.min.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="semantic-dist/semantic.min.js"></script>
-    <script src="//media.twiliocdn.com/sdk/js/video/v1/twilio-video.min.js"></script>
+    <script src="/semantic-dist/semantic.min.js"></script>
+    <script type="text/javascript" src="//cdn.timekit.io/booking-js/v1/booking.min.js" defer></script>
 
     <style type="text/css">
     .hidden.menu {
@@ -208,14 +208,14 @@
                             </div>
                         </div>
                         <div class="extra content">
-                            <div class="ui labeled button" tabindex="0">
+                            <a class="ui labeled button" href="/meet/{{cp.userId}}">
                                 <div class="ui red button">
                                     <i class="phone icon"></i> Set up a call
                                 </div>
                                 <a class="ui basic red left pointing label">
                                     1,048
                                 </a>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 {{/each}}
@@ -255,7 +255,10 @@
 
 </template>
 
-<template name="dashboard">
+<template name="meet">
+    <h1>{{curProfile.name}}, let's get a meeting set up with {{otherUser.name}}.</h1>
+    <div id="bookingjs">
+    </div>
 </template>
 
 <template name="joincall">

@@ -20,12 +20,7 @@ Router.route('/', {
 });
 
 Router.configure({
-    layoutTemplate: 'main',
-    data: function() {
-        return {
-            user: Meteor.user()
-        }
-    }
+    layoutTemplate: 'main'
 });
 
 Router.route('/register');
@@ -36,6 +31,26 @@ Router.route('/joincall/:toid', {
     template: 'joincall'
 });
 Router.route('/profile');
+Router.route('/meet/:userid', {
+    layoutTemplate: 'main',
+    template: 'meet',
+    data: function(){
+        return {
+            curProfile: UserProfile.findOne({userId: Meteor.userId()}),
+            otherUser: UserProfile.findOne({userId: this.params.userid})
+        }
+    }
+});
+
+
+
+Template.main.onCreated(function(){
+    //here's where global subscriptions are setup
+    this.autorun(() => {
+        this.subscribe('users.public');
+    })
+});
+
 
 
 
@@ -145,9 +160,13 @@ Template.profile.events({
         //profile.timezone = new
         profile.phoneNumber = $('[name=phoneNumber]').val();
 
-        console.log(profile);
-
-        Meteor.call('user.updateProfile', profile);
+        Meteor.call('user.updateProfile', profile, function(err, result){
+            if(err){
+                alert(err);
+            } else {
+                alert('profile updated!');
+            }
+        });
         //Meteor update
     }
 
