@@ -24,7 +24,8 @@ UserProfile.schema = new SimpleSchema({
 
     keywords: {
         type: [String],
-        minCount: 1
+        minCount: 1,
+        optional: true
     },
 
     name: { // Split into first and last names?
