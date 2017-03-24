@@ -15,6 +15,10 @@ Meteor.startup(() => {
         return UserProfile.find();
     });
 
+    Meteor.publish('messages', function() {
+        return Messages.find();
+    });
+
     Meteor.methods({
     	'user.updateProfile' : function(profile){
     		console.log(profile);
