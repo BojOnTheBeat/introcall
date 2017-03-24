@@ -3,8 +3,8 @@ Meteor.startup(() => {
 
 	//Keywords.insert({word: "sales"});
 		
-    Meteor.publish('consultants.public', function() {
-        return ConsultantProfiles.find();
+    Meteor.publish('users.public', function() {
+        return UserProfile.find();
     });
 
 	Meteor.publish('keywords.public', function() {

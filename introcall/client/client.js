@@ -14,7 +14,7 @@ Router.route('/', {
 
         return {
             keywords: Keywords.find(),
-            cprofiles: ConsultantProfiles.find(kfilter)
+            cprofiles: UserProfile.find(kfilter)
         }
     }
 });
@@ -41,7 +41,7 @@ Template.home.onCreated(function() {
         });
     }, 500);
     this.autorun(() => {
-        this.subscribe('consultants.public');
+        this.subscribe('users.public');
         this.subscribe('keywords.public');
     })
 });
@@ -80,11 +80,6 @@ Template.navigation.onRendered(function() {
         $('.dropdown').dropdown();
     }, 500);
 })
-Template.navigation.onCreated(function() {
-    this.autorun(() => {
-        this.subscribe('consultants.public');
-    })
-});
 
 Template.navigation.helpers({
     currentUser: function() {
@@ -93,7 +88,7 @@ Template.navigation.helpers({
 
     //change to a meteor method later
     profiles: function() {
-        var assoc = ConsultantProfiles.find({
+        var assoc = UserProfile.find({
             userId: Meteor.userId()
         });
         return assoc;
