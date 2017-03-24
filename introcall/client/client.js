@@ -138,9 +138,13 @@ Template.profile.events({
         //profile.timezone = new
         profile.phoneNumber = $('[name=phoneNumber]').val();
 
-        console.log(profile);
-
-        Meteor.call('user.updateProfile', profile);
+        Meteor.call('user.updateProfile', profile, function(err, result){
+            if(err){
+                alert(err);
+            } else {
+                alert('profile updated!');
+            }
+        });
         //Meteor update
     }
 
