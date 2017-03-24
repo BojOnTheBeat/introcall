@@ -20,12 +20,7 @@ Router.route('/', {
 });
 
 Router.configure({
-    layoutTemplate: 'main',
-    data: function() {
-        return {
-            user: Meteor.user()
-        }
-    }
+    layoutTemplate: 'main'
 });
 
 Router.route('/register');
@@ -33,6 +28,26 @@ Router.route('/login');
 Router.route('/dashboard');
 Router.route('/joincall');
 Router.route('/profile');
+Router.route('/meet/:userid', {
+    layoutTemplate: 'main',
+    template: 'meet',
+    data: function(){
+        return {
+            curProfile: UserProfile.findOne({userId: Meteor.userId()}),
+            otherUser: UserProfile.findOne({userId: this.params.userid})
+        }
+    }
+});
+
+
+
+Template.main.onCreated(function(){
+    //here's where global subscriptions are setup
+    this.autorun(() => {
+        this.subscribe('users.public');
+    })
+});
+
 
 Template.home.onCreated(function() {
     Meteor.setTimeout(function() {

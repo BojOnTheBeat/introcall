@@ -12,7 +12,7 @@ Meteor.startup(() => {
     });
 
 	Meteor.publish('user.private', function() {
-        return UserProfile.find();
+        return UserProfile.find({userId: Meteor.userId()});
     });
 
     Meteor.methods({
