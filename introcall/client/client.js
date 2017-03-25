@@ -181,7 +181,10 @@ Template.joincall.onCreated(function() {
 
 Template.joincall.helpers({
     messages: function(){
-        return Messages.find({owner: Meteor.userId(), to: Iron.controller().getParams().toid }, {sort: {timestamp: 1}})
+        // return Messages.find({owner: Meteor.userId(), to: Iron.controller().getParams().toid }, {sort: {timestamp: 1}})
+        return Messages.find({ $or: 
+            [ {owner: Meteor.userId(), to: Iron.controller().getParams().toid},
+             {owner: Iron.controller().getParams().toid, to: Meteor.userId()} ]}, {sort: {timestamp: 1}});
     },
     currentUser: function() {
         return Meteor.userId();
