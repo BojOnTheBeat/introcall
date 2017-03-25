@@ -181,63 +181,37 @@ Template.joincall.onCreated(function() {
 
 Template.joincall.helpers({
     messages: function(){
-        return Messages.find({owner: Meteor.userId(), to: Iron.controller().getParams().toid })
+        return Messages.find({owner: Meteor.userId(), to: Iron.controller().getParams().toid }, {sort: {timestamp: 1}})
     },
     currentUser: function() {
         return Meteor.userId();
     },
     toUser: function() {
         return this.params.toid;
+    },
+    currentProfile: function(){
+        return UserProfile.findOne({userId: Meteor.userId()});
+
     }
 
 
 });
 
+Template.joincall.events({
+    'click #sendmessage': function(event){
+        event.preventDefault()
+        var message = {}
+        message.message = $('[name=content]').val();
+        $('[name=content]').val('');
+        message.to = Iron.controller().getParams().toid;
+        message.owner = Meteor.userId();
 
-// var videoClient;
-// var activeRoom;
-// var previewMedia;
-// var identity;
-// var roomName;
+        Meteor.call('insertMessage', message, function(err, result){
+            if(err) alert(err);
+        });
+
+    }
+
+});
 
 
-
-
-
-// function roomJoined(room) {
-//     activeRoom = room;
-//     console.log("Joined as '" + identity + "'");
-
-//     // Show local video, if not already previewing
-//     if (!previewMedia) {
-//         room.localParticipant.media.attach('#local-media');
-//     }
-
-//     room.participants.forEach(function(participant) {
-//         console.log("Already in Room: '" + participant.identity + "'");
-//         participant.media.attach('#remote-media');
-//     });
-
-//     // When a participant joins, show their video on screen
-//     room.on('participantConnected', function(participant) {
-//         console.log("Joining: '" + participant.identity + "'");
-//         participant.media.attach('#remote-media');
-//     });
-
-//     // When a participant disconnects, note in log
-//     room.on('participantDisconnected', function(participant) {
-//         console.log("Participant '" + participant.identity + "' left the room");
-//         participant.media.detach();
-//     });
-
-//     // When we are disconnected, stop capturing local video
-//     // Also remove media for all remote participants
-//     room.on('disconnected', function() {
-//         console.log('Left');
-//         room.localParticipant.media.detach();
-//         room.participants.forEach(function(participant) {
-//             participant.media.detach();
-//         });
-//         activeRoom = null;
-//     });
-// }

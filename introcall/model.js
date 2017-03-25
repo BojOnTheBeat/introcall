@@ -86,7 +86,7 @@ Messages.schema = new SimpleSchema({
 
     'timestamp': {
     type: Date,
-    label: 'The date and time this message was created.'
+    label: 'The date and time this message was created.',
     },
 
     'message': {
