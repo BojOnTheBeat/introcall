@@ -91,7 +91,8 @@ Messages.schema = new SimpleSchema({
 
     'message': {
     type: String,
-    label: 'The content of this message.'
+    label: 'The content of this message.',
+    min: 1,
     }
 });
 
