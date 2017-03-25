@@ -195,6 +195,11 @@ Template.joincall.helpers({
     currentProfile: function(){
         return UserProfile.findOne({userId: Meteor.userId()});
 
+    },
+    getName: function(id){
+        return UserProfile.findOne({userId: id}).name;
+
+
     }
 
 
