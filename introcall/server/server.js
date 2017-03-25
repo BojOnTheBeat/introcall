@@ -15,6 +15,10 @@ Meteor.startup(() => {
         return UserProfile.find({userId: Meteor.userId()});
     });
 
+    Meteor.publish('messages', function() {
+        return Messages.find();
+    });
+
     Meteor.methods({
     	'user.updateProfile' : function(profile){
     		console.log(profile);
@@ -34,5 +38,15 @@ Meteor.startup(() => {
     			{multi: false, upsert: true});
 
     	},
+
+        'insertMessage' : function(message) {
+            var currentUser = Meteor.userId();
+            if(!currentUser){
+                throw new Meteor.Error("not-logged-in", "You're not logged-in.");
+            }
+            message.timestamp = new Date();
+            Messages.insert(message);
+
+        },
     });
 });

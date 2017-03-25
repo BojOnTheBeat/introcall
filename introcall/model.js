@@ -3,6 +3,7 @@ const VALIDTIMEZONES = require('timezones.json');
 
 UserProfile = new Mongo.Collection('UserProfile');
 Keywords = new Mongo.Collection('Keywords');
+Messages = new Mongo.Collection('messages');
 
 Keywords.schema = new SimpleSchema({
     word: {
@@ -69,3 +70,40 @@ UserProfile.schema = new SimpleSchema({
 });
 
 UserProfile.attachSchema(UserProfile.schema);
+
+Messages.schema = new SimpleSchema({
+    'to': {
+    type: String,
+    label: 'The ID of the user this message was sent directly to.',
+    regEx: SimpleSchema.RegEx.Id
+    },
+
+    'owner': {
+    type: String,
+    label: 'The ID of the user that created this message.',
+    regEx: SimpleSchema.RegEx.Id
+    },
+
+    'timestamp': {
+    type: Date,
+    label: 'The date and time this message was created.',
+    },
+
+    'message': {
+    type: String,
+    label: 'The content of this message.'
+    }
+});
+
+Messages.attachSchema( Messages.schema );
+
+
+
+
+
+
+
+
+
+
+
