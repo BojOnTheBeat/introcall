@@ -276,7 +276,8 @@
                     {{#if messages}}
                         {{#each messages}}
                             <p>
-                                <span class="name">{{currentProfile.name}}</span>
+                                <span class="name">{{getName owner}}</span>
+                                >
                                 {{message}}
                                 <span class="timestamp">&ndash;{{timestamp}}</span> 
                             </p>

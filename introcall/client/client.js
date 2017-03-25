@@ -228,6 +228,11 @@ Template.joincall.helpers({
     currentProfile: function(){
         return UserProfile.findOne({userId: Meteor.userId()});
 
+    },
+    getName: function(id){
+        return UserProfile.findOne({userId: id}).name;
+
+
     }
 
 
@@ -243,7 +248,9 @@ Template.joincall.events({
         message.owner = Meteor.userId();
 
         Meteor.call('insertMessage', message, function(err, result){
-            if(err) alert(err);
+            if(err) {
+                alert(err);
+            }
         });
 
     }
