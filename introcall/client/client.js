@@ -31,7 +31,24 @@ Router.route('/joincall/:toid', {
     template: 'joincall'
 });
 Router.route('/profile');
-Router.route('/bookings');
+Router.route('/bookings', function(){
+    var q = this.params.query;
+
+    if (q.token){
+        console.log(q);
+    }
+
+    this.render('bookings', {
+        data: function(){
+            return {
+                timekitSetupUrl: 'https://api.timekit.io/v2/accounts/google/signup?Timekit-App=introcall-348&callback=' 
+                + window.location.origin + "/bookings"
+            }
+        }
+    });
+});
+
+
 Router.route('/meet/:userid', {
     layoutTemplate: 'main',
     template: 'meet'
@@ -74,11 +91,6 @@ Template.meet.onRendered(function() {
     })
 });
 
-Template.bookings.helpers({
-    timekitSetupUrl: function() {
-        return 'https://api.timekit.io/v2/accounts/google/signup?Timekit-App=introcall-348&callback=' + window.location.href;
-    }
-})
 
 Template.main.onCreated(function() {
     //here's where global subscriptions are setup
