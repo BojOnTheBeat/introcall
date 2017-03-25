@@ -336,6 +336,17 @@
     </form>
 </template>
 
+<template name="bookings">
+    {{#if curProfile.timekiApiToken}}
+        <div id="bookingjs">
+        </div>
+    {{else}}
+        <h1>You need to connect your Google Calendar</h1>
+        <a href="{{timekitSetupUrl}}">Click here</a> to connect your Google Calendar account.
+    {{/if}}
+</template>
+
+
 <template name="login">
     <h2>Login</h2>
     <form class="login">
@@ -382,9 +393,7 @@
     {{/if}}
 
 </template>
-
-
-    
+  
 
 <template name="navigation">
     <div class="ui container">
@@ -392,8 +401,8 @@
             <a class="toc item">
                 <i class="sidebar icon"></i>
             </a>
-            <a class="active item" href="{{pathFor route='home'}}">Home - All Profiles</a>
-            <a class="item" href="/bookings">My Bookings</a>
+            <a class="{{#if currentRouteIs 'home'}}active{{/if}} item" href="{{pathFor route='home'}}">Home - All Profiles</a>
+            <a class="{{#if currentRouteIs 'bookings'}}active{{/if}} item" href="/bookings">My Bookings</a>
             <div class="right item">
                 {{#if currentUser}}
                     <span>
