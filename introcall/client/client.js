@@ -33,25 +33,56 @@ Router.route('/joincall/:toid', {
 Router.route('/profile');
 Router.route('/meet/:userid', {
     layoutTemplate: 'main',
-    template: 'meet',
-    data: function(){
-        return {
-            curProfile: UserProfile.findOne({userId: Meteor.userId()}),
-            otherUser: UserProfile.findOne({userId: this.params.userid})
-        }
-    }
+    template: 'meet'
 });
 
+Template.registerHelper('curProfile', function() {
+    return UserProfile.findOne({
+        userId: Meteor.userId()
+    })
+})
+
+Template.meet.helpers({
+    otherUser: function() {
+        return UserProfile.findOne({
+            userId: Iron.controller().getParams().userid
+        })
+    }
+})
 
 
-Template.main.onCreated(function(){
+Template.meet.onRendered(function() {
+    var t = new TimekitBooking();
+    var context = this;
+
+    this.autorun(() => {
+
+        var p = UserProfile.findOne({
+            userId: Iron.controller().getParams().userid
+        })
+
+        if (p) {
+            if (p.timekitApiToken) {
+                t.init({
+                    app: 'introcall-348',
+                    email: p.email,
+                    apiToken: p.timekitApiToken,
+                    name: p.name,
+                    avatar: p.avatarUrl
+                })
+            } else {
+                var turl = t.timekitSdk.accountGoogleSignup();
+            }
+        }
+    })
+})
+
+Template.main.onCreated(function() {
     //here's where global subscriptions are setup
     this.autorun(() => {
         this.subscribe('users.public');
     })
 });
-
-
 
 
 Template.home.onCreated(function() {
@@ -140,8 +171,10 @@ Template.profile.onCreated(function() {
 
 
 Template.profile.helpers({
-    formData: function(){
-        return UserProfile.findOne({userId: Meteor.userId()})
+    formData: function() {
+        return UserProfile.findOne({
+            userId: Meteor.userId()
+        })
     },
     currentUser: function() {
         return Meteor.user();
@@ -160,8 +193,8 @@ Template.profile.events({
         //profile.timezone = new
         profile.phoneNumber = $('[name=phoneNumber]').val();
 
-        Meteor.call('user.updateProfile', profile, function(err, result){
-            if(err){
+        Meteor.call('user.updateProfile', profile, function(err, result) {
+            if (err) {
                 alert(err);
             } else {
                 alert('profile updated!');
