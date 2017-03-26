@@ -29,7 +29,7 @@ Template.joincall.helpers({
         return Meteor.userId();
     },
     toUser: function() {
-        return this.params.toid;
+        return Iron.controller().getParams().toid;
     },
     currentProfile: function() {
         return UserProfile.findOne({
