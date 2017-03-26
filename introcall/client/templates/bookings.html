@@ -1,0 +1,61 @@
+<template name="bookings">
+    {{#if curProfile.timekitDefaultCal}}
+        <h1>Your Bookings</h1>
+
+        <h1>Available Slots on Your Calendar</h1>
+        <div class="ui segment big" style="min-height: 200px;" id="load">
+            <div class="ui active dimmer">
+                <div class="ui indeterminate text loader">Loading your default calendar...</div>
+            </div>
+            <p></p>
+        </div>
+
+        <div id="bookingjs">
+        </div>
+
+        <script>
+        var widget = new TimekitBooking();
+        var email = '{{curProfile.timekitApiEmail}}';
+        var apiToken = '{{curProfile.timekitApiToken}}';
+        var cal = '{{curProfile.timekitDefaultCal}}';
+        widget.timekitSdk.setUser(email, apiToken);
+        widget.timekitSdk.accountSync().then(function(response) {
+            widget.init({
+                app: 'introcall-348',
+                email: email,
+                apiToken: apiToken,
+                calendar: cal,
+                callbacks: {
+                    renderCompleted: function() {
+                        $("#load").remove();
+                    }
+                }
+            })
+        });
+
+        </script>
+
+    {{else}}
+        {{#if curProfile.timekitApiToken}}
+            <h1>Thanks for connecting your Google Calendar account! Now chooose a default calendar:</h1>
+        {{else}}
+            <h1>You need to connect your Google Calendar</h1>
+            <a href="{{timekitSetupUrl}}">Click here</a> to connect your Google Calendar account.
+        {{/if}}
+    {{/if}}
+
+    <ul>
+        {{#each c in curProfile.timekitCalendars}}
+            <li>
+                {{c.name}}
+
+                {{#if isEqual c.id curProfile.timekitDefaultCal}}
+                    -- this is the current default
+                {{else}}
+                    <button class="setdef" id="{{c.id}}">Set as default</button>
+                {{/if}}
+            </li>
+        {{/each}}
+    </ul>
+
+</template>

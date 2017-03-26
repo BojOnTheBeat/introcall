@@ -1,0 +1,103 @@
+<template name="home">
+
+    <!-- Page Contents -->
+    <div class="pusher">
+        <div class="ui inverted vertical masthead center aligned segment">
+
+            {{> navigation}}
+
+            <div class="ui text container">
+                <h1 class="ui inverted header">
+                    Introcall
+                </h1>
+                <h2>Talk to a human.™</h2>
+                <div class="ui huge primary button">Set up a call today <i class="right arrow icon"></i></div>
+            </div>
+
+        </div>
+
+        <div class="ui vertical stripe segment container">
+            <h2>Search for Profiles</h2>
+
+            <div class="ui grid">
+                <div class="six wide column">
+                    <select id="kfilter" class="ui fluid search dropdown" multiple="" onchange="Session.set('kfilter', $(this).val())">
+
+                        <option value="">filter by keywords</option>
+                        {{#each k in keywords}}
+                            <option value="{{k.word}}">{{k.word}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="ui special cards">
+                {{#each cp in cprofiles}}
+                    <div class="card">
+                        <div class="blurring dimmable image">
+                            <div class="ui dimmer">
+                                <div class="content">
+                                    <div class="center">
+                                        <a class="ui inverted button" href="/joincall/{{cp.userId}}">Join call</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <img src="{{cp.avatarUrl}}">
+                        </div>
+                        <div class="content">
+                            <a class="header">{{cp.name}}</a>
+                            <div class="meta">
+                                <span class="date"><i class="world icon"></i> {{cp.currentLocation}}</span>
+                            </div>
+                            <div class="description">
+                                <div class="keywords">{{cp.keywords}}</div>
+                                {{cp.description}}
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a class="ui labeled button" href="/meet/{{cp.userId}}">
+                                <div class="ui red button">
+                                    <i class="phone icon"></i> Set up a call
+                                </div>
+                                <a class="ui basic red left pointing label">
+                                    1,048
+                                </a>
+                            </a>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+
+        </div>
+
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">About</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Sitemap</a>
+                            <a href="#" class="item">Contact Us</a>
+                            <a href="#" class="item">Religious Ceremonies</a>
+                            <a href="#" class="item">Gazebo Plans</a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">Services</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Banana Pre-Order</a>
+                            <a href="#" class="item">DNA FAQ</a>
+                            <a href="#" class="item">How To Access</a>
+                            <a href="#" class="item">Favorite X-Men</a>
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header">Footer Header</h4>
+                        <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

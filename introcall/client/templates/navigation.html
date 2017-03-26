@@ -1,0 +1,49 @@
+<template name="navigation">
+    <div class="ui container">
+        <div class="ui large secondary inverted pointing menu">
+            <a class="toc item">
+                <i class="sidebar icon"></i>
+            </a>
+            <a class="{{#if currentRouteIs 'home'}}active{{/if}} item" href="{{pathFor route='home'}}">Home - All Profiles</a>
+            <a class="{{#if currentRouteIs 'bookings'}}active{{/if}} item" href="/bookings">My Bookings</a>
+            <div class="right item">
+                {{#if currentUser}}
+                    <span>
+                        <div class="ui inline dropdown">
+                            
+                            <div class="text">
+                            <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/jenny.jpg">
+                            My Profiles
+
+                            </div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+
+                            {{#each cp in profiles}}
+                                <div class="item">
+                                    <img class="ui avatar image" src= {{cp.avatarUrl}} >
+                                    {{cp.displayName}}
+                                </div>
+                            {{/each}}
+
+                            
+                            <div class="item">
+                                <i class="add user icon"></i>
+                                Add a Profile
+                            </div>
+                            <a class="item" href="{{pathFor route='profile'}}">
+                                <i class="edit icon"></i>
+                                Edit My Contact Profile
+                            </a>
+                            </div>
+                        </div>
+                    </span>
+                    <a class="ui inverted button logout">Logout</a>
+                {{else}}
+                    <a class="ui inverted button" href="{{pathFor route='login'}}">Log in</a>
+                    <a class="ui inverted button" href="{{pathFor route='register'}}">Sign Up</a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</template>

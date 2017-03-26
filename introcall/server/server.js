@@ -3,8 +3,6 @@ import timekit from 'timekit-sdk';
 Meteor.startup(() => {
     console.log('Introcall Server Started.');
 
-    //Keywords.insert({word: "sales"});
-
     Meteor.publish('users.public', function() {
         return UserProfile.find();
     });
@@ -18,11 +16,6 @@ Meteor.startup(() => {
             userId: this.userId
         });
     });
-
-    // Meteor.publish('serverMessages', function() {
-    //     return serverMessages;
-    // });
-
 
     Meteor.publish('messages', function() {
         return Messages.find();

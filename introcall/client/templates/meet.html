@@ -1,0 +1,11 @@
+<template name="meet">
+    <h1>{{curProfile.name}}, let's get a meeting set up with {{otherUser.name}}.</h1>
+
+    <div id="bookingjs">
+    </div>
+
+    {{#if otherUser.timekitDefaultCal}}
+    {{else}}
+        This user has not setup their calendar yet. Sorry about that - bookings are not possible for the moment.
+    {{/if}}
+</template>

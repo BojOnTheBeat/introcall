@@ -1,0 +1,174 @@
+    .hidden.menu {
+        display: none;
+    }
+
+    .masthead.segment {
+        min-height: 700px;
+        padding: 1em 0em;
+    }
+
+    .masthead .logo.item img {
+        margin-right: 1em;
+    }
+
+    .masthead .ui.menu .ui.button {
+        margin-left: 0.5em;
+    }
+
+    .masthead h1.ui.header {
+        margin-top: 3em;
+        margin-bottom: 0em;
+        font-size: 4em;
+        font-weight: normal;
+    }
+
+    .masthead h2 {
+        font-size: 1.7em;
+        font-weight: normal;
+    }
+
+    .ui.vertical.stripe {
+        padding: 8em 0em;
+    }
+
+    .ui.vertical.stripe h3 {
+        font-size: 2em;
+    }
+
+    .ui.vertical.stripe .button+h3,
+    .ui.vertical.stripe p+h3 {
+        margin-top: 3em;
+    }
+
+    .ui.vertical.stripe .floated.image {
+        clear: both;
+    }
+
+    .ui.vertical.stripe p {
+        font-size: 1.33em;
+    }
+
+    .ui.vertical.stripe .horizontal.divider {
+        margin: 3em 0em;
+    }
+
+    .quote.stripe.segment {
+        padding: 0em;
+    }
+
+    .quote.stripe.segment .grid .column {
+        padding-top: 5em;
+        padding-bottom: 5em;
+    }
+
+    .footer.segment {
+        padding: 5em 0em;
+    }
+
+    .secondary.pointing.menu .toc.item {
+        display: none;
+    }
+
+    ul.notifications {
+        position: fixed;
+    }
+
+    .name {
+        font-weight: 900;
+        padding-right: .25rem;
+        color: #3d3c40 !important;
+        margin-left: 0;
+        font-style: normal;
+        text-decoration: none;
+    }
+
+    .timestamp {
+        text-align: left;
+        display: inline;
+        position: relative;
+        top: 0;
+        left: 0;
+        color: #babbbf;
+        font-size: 12px;
+        line-height: 1.2rem;
+        width: 36px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .message_content {
+        color: #8b898f;
+        font-style: italic;
+        display: block;
+        min-height: 1rem;
+    }
+
+    .single_message_container {
+        position: relative;
+        margin-top: .5rem;
+        padding: .25rem 2rem .1rem 3rem;
+        min-height: 36px;
+    }
+
+    .messages {
+        margin-left: 220px;
+        height: 300px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        padding: 0 18px 1rem 1.5rem;
+    }
+
+    .input-box {
+        height: 100%;
+        margin: auto;
+    }
+
+    .input-box_text {
+        font-size: .95rem;
+        width: 90%;
+        margin-left: 2%;
+        margin-bottom: auto;
+        line-height: 1.2rem;
+        border: 2px solid #e0e0e0;
+        -moz-border-radius: 0.2rem;
+        -webkit-border-radius: 0.2rem;
+        border-radius: 0.2rem;
+        -moz-background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        color: #3d3c40;
+        -webkit-appearance: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        outline: 0;
+        bottom: 0;
+        min-height: 41px !important;
+        padding: 9px 5px 9px 8px;
+    }
+
+
+    @media only screen and (max-width: 700px) {
+        .ui.fixed.menu {
+            display: none !important;
+        }
+        .secondary.pointing.menu .item,
+        .secondary.pointing.menu .menu {
+            display: none;
+        }
+        .secondary.pointing.menu .toc.item {
+            display: block;
+        }
+        .masthead.segment {
+            min-height: 350px;
+        }
+        .masthead h1.ui.header {
+            font-size: 2em;
+            margin-top: 1.5em;
+        }
+        .masthead h2 {
+            margin-top: 0.5em;
+            font-size: 1.5em;
+        }
+    }
