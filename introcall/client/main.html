@@ -265,7 +265,7 @@
     {{else}}
         This user has not setup their calendar yet. Sorry about that - bookings are not possible for the moment.
     {{/if}}
-    
+
 </template>
 
 <template name="joincall">
@@ -277,10 +277,8 @@
                     {{#if messages}}
                         {{#each messages}}
                             <p>
-                                <span class="name">{{getName owner}}</span>
-                                >
-                                {{message}}
-                                <span class="timestamp">&ndash;{{timestamp}}</span> 
+                                <span class="name">{{getName owner}}</span> > {{message}}
+                                <span class="timestamp">&ndash;{{timestamp}}</span>
                             </p>
                         {{/each}}
                     {{/if}}
@@ -339,27 +337,41 @@
 
 <template name="bookings">
     {{#if curProfile.timekitDefaultCal}}
-        <h1>Available Slots on Your Calendar</h1>
-        <div id="bookingjs">
-            loading...
-        </div>
-        <script>
-            var widget = new TimekitBooking();
-            var email = '{{curProfile.timekitApiEmail}}';
-            var apiToken = '{{curProfile.timekitApiToken}}';
-            var cal = '{{curProfile.timekitDefaultCal}}';
-
-            widget.timekitSdk.setUser(email, apiToken);
-            widget.timekitSdk.accountSync().then(function(response){
-                widget.init({
-                    app:      'introcall-348',
-                    email:    email,
-                    apiToken: apiToken,
-                    calendar: cal
-                });
-            });
-        </script>
+        <h1>Your Bookings</h1>
         
+        <h1>Available Slots on Your Calendar</h1>
+        <div class="ui segment big" style="min-height: 200px;" id="load">
+            <div class="ui active dimmer">
+                <div class="ui indeterminate text loader">Loading your default calendar...</div>
+            </div>
+            <p></p>
+        </div>
+
+        <div id="bookingjs">
+        </div>
+
+        <script>
+        var widget = new TimekitBooking();
+        var email = '{{curProfile.timekitApiEmail}}';
+        var apiToken = '{{curProfile.timekitApiToken}}';
+        var cal = '{{curProfile.timekitDefaultCal}}';
+        widget.timekitSdk.setUser(email, apiToken);
+        widget.timekitSdk.accountSync().then(function(response) {
+            widget.init({
+                app: 'introcall-348',
+                email: email,
+                apiToken: apiToken,
+                calendar: cal,
+                callbacks: {
+                    renderCompleted: function() {
+                        $("#load").remove();
+                    }
+                }
+            })
+        });
+
+        </script>
+
     {{else}}
         {{#if curProfile.timekitApiToken}}
             <h1>Thanks for connecting your Google Calendar account! Now chooose a default calendar:</h1>
@@ -370,21 +382,20 @@
     {{/if}}
 
     <ul>
-    {{#each c in curProfile.timekitCalendars}}
-        <li>
-            {{c.name}}
+        {{#each c in curProfile.timekitCalendars}}
+            <li>
+                {{c.name}}
 
-            {{#if isEqual c.id curProfile.timekitDefaultCal}}
-                -- this is the current default
-            {{else}}
-                <button class="setdef" id="{{c.id}}">Set as default</button>
-            {{/if}}
-        </li>
-    {{/each}}
+                {{#if isEqual c.id curProfile.timekitDefaultCal}}
+                    -- this is the current default
+                {{else}}
+                    <button class="setdef" id="{{c.id}}">Set as default</button>
+                {{/if}}
+            </li>
+        {{/each}}
     </ul>
 
 </template>
-
 
 <template name="login">
     <h2>Login</h2>
@@ -432,7 +443,6 @@
     {{/if}}
 
 </template>
-  
 
 <template name="navigation">
     <div class="ui container">
