@@ -277,7 +277,7 @@ Template.joincall.events({
 
             sub = {}
             sub.subject = "New Message";
-            sub.OwnerId = Meteor.userId();
+            sub.toId = message.to;
 
             var message = "From " + UserProfile.findOne({userId: Meteor.userId()}).name;
             var type = 'success'; 
@@ -296,7 +296,7 @@ Template.joincall.events({
 // Listen for notifications from the server
 serverMessages.listen('serverMessage:success', function (subject, message, options) {
     //Don't show notifications to sender
-    if (Meteor.userId() != subject.OwnerId){
+    if (Meteor.userId() == subject.toId){
         Notifications.success(subject.subject, message, options);
     }
   });
