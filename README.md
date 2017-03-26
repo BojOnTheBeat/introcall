@@ -3,6 +3,10 @@ Uber for professional introductions.
 
 Talk to a human.™
 
+## Demo URL
+
+https://alpha.introcall.io/ (works on the latest version of Google Chrome desktop only)
+
 ## Team
 - Isa Hassen
 - Bolaji Fatade
@@ -28,38 +32,31 @@ professional network.
 These are the MVP features which need to be working by Mar 12.
 
 - user sign up and login
-- two separate dashboards for logged-in users: "consultant profile" and "client profile"
-- ability to edit consultant profile with picture, text description, keywords,
-current location and timezone
-- ability to edit client profile with picture, location, text description,
-current location and timezone
+- user profile page edits
 - infinite-scrolling homepage with listing of profiles of people to talk to
-- search for profiles by keywords, filter by location, and filter by availability
- for a particular date/time
+- search for profiles or filter by keywords
 - realtime Call page: clients and consultants can join a room with video calling
 (however scheduling/booking the call will not be implemented yet)
 
 ## Final features
 
 - Timekit.io booking/scheduling integration
-  - ability for consultants to specify their availability by creating timeslots
-on specific days, or recurring timeslots by week/month
+  - ability for consultants to connect their Google Calendar to mark availability
   - client scheduling form: clients select time/date of call (must take into account 
 consultant availability and timezone differences)
 - realtime Call page with text chat (and notifications)
-- relevant profiles algorithm: similar to Facebook's feed algorithm, we will
+~~- relevant profiles algorithm: similar to Facebook's feed algorithm, we will
   need to come up with an algorithm that uses analytics/location data to suggest
   relevant people that you might want to connect with (and show those profiles
-  on the front page)
+  on the front page)~~
 
 ## Tech Stack
 
 - Full Stack Meteor.js (Node, Mongo, Blaze)
-- Passport.js for authentication
-- Twilio API for live audio/video calls
+- Appear.in API for live audio/video calls
 - Timekit.io for booking/scheduling integration
 
-#### future additions
+#### future additions (not part of this project)
 
 - Stripe API for payments
 - Segment.io for analytics
@@ -68,11 +65,10 @@ consultant availability and timezone differences)
 
 ## Tech Challenges
 
-- Building a realtime chat room with live video calling and in-app messaging, 
-that works seamlessly on both mobile and desktop
+- Building a realtime chat room with live video calling and in-app messaging
 - Learning the Meteor.js Full Stack Framework, and adapting it to special use
 cases, like a live video call page
 - Integrating lots of external APIs (Timekit, LinkedIn, Twilio, Stripe, 
 Segment, etc.)
-- learning a developing a "relevancy" algorithm, similar to Google's Adwords
-  and Facebook's feed algo.
+~~- learning a developing a "relevancy" algorithm, similar to Google's Adwords
+  and Facebook's feed algo.~~
