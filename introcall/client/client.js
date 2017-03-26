@@ -261,40 +261,55 @@ Template.joincall.helpers({
         }
 
     },
+    scroll: function(){
+        $('.messages').stop().animate({
+            scrollTop: $('.messages')[0].scrollHeight
+        }, 800);
+        return false;
+
+    },
 
 
 });
 
 Template.joincall.events({
-    'click #sendmessage': function(event){
-        event.preventDefault()
-        var message = {}
-        message.message = $('[name=content]').val();
-        $('[name=content]').val('');
-        message.to = Iron.controller().getParams().toid;
-        message.owner = Meteor.userId();
+    'keypress input': function(e) {
+        var inputVal = $('.input-box_text').val();
+        if(!!inputVal) {
+            var charCode = (typeof e.which == "number") ? e.which : e.keyCode;
+            if (charCode == 13) {
+                
+                var message = {};
+                message.to = Iron.controller().getParams().toid;
+                message.owner = Meteor.userId();
+                message.message = $('.input-box_text').val();
+                e.stopPropagation();
+                Meteor.call('insertMessage', message, function(err, result){
+                    if(err) {
+                        alert(err);
+                    }
+                });
+                $('.input-box_text').val("");
 
-        Meteor.call('insertMessage', message, function(err, result){
-            if(err) {
-                alert(err);
+                $('.messages').stop().animate({
+                  scrollTop: $('.messages')[0].scrollHeight
+                }, 800);
+
+                return false;
             }
+        }
+        sub = {}
+        sub.subject = "New Message";
+        sub.toId = message.to;
+
+        var message = "From " + UserProfile.findOne({userId: Meteor.userId()}).name;
+        var type = 'success'; 
+
+        Meteor.call('notify', 'serverMessage:' + type, sub, message, {
+            userCloseable: true,
+            timeout: 5000
         });
-
-        //Send notification to server
-
-            sub = {}
-            sub.subject = "New Message";
-            sub.toId = message.to;
-
-            var message = "From " + UserProfile.findOne({userId: Meteor.userId()}).name;
-            var type = 'success'; 
-
-            Meteor.call('notify', 'serverMessage:' + type, sub, message, {
-                userCloseable: true,
-                timeout: 5000
-            });
-
-    }
+    },
 
 });
 

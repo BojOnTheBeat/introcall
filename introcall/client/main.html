@@ -121,6 +121,34 @@
         
         padding: 0 18px 1rem 1.5rem;
     }
+    .input-box {
+        height: 100%;
+        margin: auto;
+    }
+
+    .input-box_text {
+        font-size: .95rem;
+        width: 90%;
+        margin-left: 2%;
+        margin-bottom: auto;
+        line-height: 1.2rem;
+        border: 2px solid #e0e0e0;
+        -moz-border-radius: 0.2rem;
+        -webkit-border-radius: 0.2rem;
+        border-radius: 0.2rem;
+        -moz-background-clip: padding-box;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        color: #3d3c40;
+        -webkit-appearance: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        outline: 0;
+        bottom: 0;
+        min-height: 41px !important;
+        padding: 9px 5px 9px 8px;
+    }
 
 
     @media only screen and (max-width: 700px) {
@@ -315,22 +343,24 @@
 </template>
 
 <template name="joincall">
+
     {{> notifications}}
     <iframe src="https://appear.in/introcall.io-sandbox" width="800" id= "appearin" height="640" frameborder="0"></iframe>
     <div class="container">
         <div class="row">
             <div class="messages-container">
+                <h2>Chat</h2>
                 <div class="messages ui floating message">
                     {{#if messages}}
                         {{#each messages}}
                             {{#if color owner}}
                             <div class= "single_message_container ui floating message">
-                            <!-- <p> -->
+                            
                                 <span class="name">{{getName owner}}</span>
                                 <span class="timestamp">&ndash;{{timestamp}}</span> 
                                 <span class="message_star"></span>
                                 <span class="message_content">{{message}}</span>
-                            <!-- </p> -->
+                            {{scroll}}
                             </div>
 
                             {{else}}
@@ -341,9 +371,11 @@
                                 <span class="message_star"></span>
                                 <span class="message_content">{{message}}</span>
                             <!-- </p> -->
+                            {{scroll}}
                             </div>
                             {{/if}}
                         {{/each}}
+
                     {{/if}}
                 </div>
                 <!-- <ul class="user-list">
@@ -368,13 +400,8 @@
                     <input type="checkbox" class="away-toggle" />
                     <label>Set away</label>
                 </p>
-                <div class="form-group">
-                    <textarea class="form-control message" name="content" cols="100" placeholder="Write a message"></textarea>
-                </div>
-                <div class="form-group clearfix">
-                    <input type="submit" id="sendmessage" style="margin-left: 10px;" value="Send message" />
-
-                    <!-- <a href="{{pathFor 'rooms'}}" class="btn btn-danger pull-right">Disconnect</a> -->
+                <div class="input-box">
+                    <input type="text" class="input-box_text">
                 </div>
             </div>
         </div>
