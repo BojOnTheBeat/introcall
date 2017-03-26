@@ -31,6 +31,28 @@ Router.route('/joincall/:toid', {
     template: 'joincall'
 });
 Router.route('/profile');
+Router.route('/bookings', function(){
+    var q = this.params.query;
+    var con = this;
+
+    if (q.token){
+        Meteor.call('connectTimekit', {token: q.token, email: q.email}, function(err, result){
+            if(err) alert(err);
+            con.redirect('/bookings');
+        })
+    }
+
+    this.render('bookings', {
+        data: function(){
+            return {
+                timekitSetupUrl: 'https://api.timekit.io/v2/accounts/google/signup?Timekit-App=introcall-348&callback=' 
+                + window.location.origin + "/bookings"
+            }
+        }
+    });
+});
+
+
 Router.route('/meet/:userid', {
     layoutTemplate: 'main',
     template: 'meet'
@@ -42,6 +64,10 @@ Template.registerHelper('curProfile', function() {
     })
 })
 
+Template.registerHelper('currentRouteIs', function (route) { 
+  return Router.current().route.getName() === route; 
+});
+
 Template.meet.helpers({
     otherUser: function() {
         return UserProfile.findOne({
@@ -50,32 +76,25 @@ Template.meet.helpers({
     }
 })
 
-
 Template.meet.onRendered(function() {
     var t = new TimekitBooking();
-    var context = this;
 
     this.autorun(() => {
-
         var p = UserProfile.findOne({
             userId: Iron.controller().getParams().userid
         })
-
-        if (p) {
-            if (p.timekitApiToken) {
-                t.init({
-                    app: 'introcall-348',
-                    email: p.email,
-                    apiToken: p.timekitApiToken,
-                    name: p.name,
-                    avatar: p.avatarUrl
-                })
-            } else {
-                var turl = t.timekitSdk.accountGoogleSignup();
-            }
+        if (p && p.timekitApiToken) {
+            t.init({
+                app: 'introcall-348',
+                email: p.email,
+                apiToken: p.timekitApiToken,
+                name: p.name,
+                avatar: p.avatarUrl
+            })
         }
     })
-})
+});
+
 
 Template.main.onCreated(function() {
     //here's where global subscriptions are setup

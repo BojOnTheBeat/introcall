@@ -58,6 +58,19 @@ UserProfile.schema = new SimpleSchema({
 
     },
 
+    timekitApiToken: {
+        type: String,
+        min: 5,
+        max: 300,
+        optional: true
+    },
+
+    timekitApiEmail: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Email,
+        optional: true
+    },
+
     avatarUrl: {
         type: String,
         regEx: SimpleSchema.RegEx.Url, //TODO: need to prevent CSRF attacks on this
