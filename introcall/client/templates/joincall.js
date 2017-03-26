@@ -103,7 +103,7 @@ Template.joincall.events({
                     Meteor.call('notify', 'serverMessage:' + type,
                         sub, message, {
                             userCloseable: true,
-                            timeout: 5000
+                            timeout: 6000
                         });
 
                     return false;
@@ -123,7 +123,7 @@ Template.joincall.events({
             Meteor.call('notify', 'serverMessage:' + type, sub,
                 message, {
                     userCloseable: true,
-                    timeout: 5000
+                    timeout: 2000
                 });
         }, 300)()
     }
