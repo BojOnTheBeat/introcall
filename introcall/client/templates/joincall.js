@@ -38,9 +38,11 @@ Template.joincall.helpers({
 
     },
     getName: function(id) {
-        return UserProfile.findOne({
+        var p = UserProfile.findOne({
             userId: id
-        }).name;
+        });
+
+        return p ? p.name : '...';
 
     },
 
@@ -61,64 +63,69 @@ Template.joincall.helpers({
 });
 
 Template.joincall.events({
-    'keypress input': _.throttle(function(e) {
-        var inputVal = $('.input-box_text').val();
-        var message = {};
-        message.to = Iron.controller().getParams().toid;
-        message.owner = Meteor.userId();
-        
+    'keyup .input-box_text': function(e) {
+        _.throttle(function() {
+            var inputVal = $('.input-box_text').val();
+            var message = {};
+            message.to = Iron.controller().getParams().toid;
+            message.owner = Meteor.userId();
 
-        if (!!inputVal) {
-            var charCode = (typeof e.which == "number") ? e.which : e.keyCode;
+            if (!!inputVal) {
+                var charCode = (typeof e.which == "number") ? e.which :
+                    e.keyCode;
 
+                if (charCode == 13) {
 
-            if (charCode == 13) {
+                    message.message = $('.input-box_text').val();
+                    e.stopPropagation();
+                    Meteor.call('insertMessage', message, function(
+                        err, result) {
+                        if (err) {
+                            alert(err);
+                        }
+                    });
+                    $('.input-box_text').val("");
 
-                message.message = $('.input-box_text').val();
-                e.stopPropagation();
-                Meteor.call('insertMessage', message, function(err, result) {
-                    if (err) {
-                        alert(err);
-                    }
-                });
-                $('.input-box_text').val("");
+                    $('.messages').stop().animate({
+                        scrollTop: $('.messages')[0].scrollHeight
+                    }, 800);
 
-                $('.messages').stop().animate({
-                    scrollTop: $('.messages')[0].scrollHeight
-                }, 800);
+                    sub = {}
+                    sub.subject = "New Message " + "From " + UserProfile.findOne({
+                        userId: Meteor.userId()
+                    }).name;
 
-                sub = {}
-                sub.subject = "New Message";
-                sub.toId = message.to;
+                    sub.toId = message.to;
 
-                var message = "From " + UserProfile.findOne({
-                    userId: Meteor.userId()
-                }).name;
-                var type = 'success';
+                    var message = message.message;
+                    var type = 'success';
 
-                Meteor.call('notify', 'serverMessage:' + type, sub, message, {
+                    Meteor.call('notify', 'serverMessage:' + type,
+                        sub, message, {
+                            userCloseable: true,
+                            timeout: 5000
+                        });
+
+                    return false;
+                }
+            }
+
+            //See that the user is typing
+            sub = {}
+            sub.subject = UserProfile.findOne({
+                userId: Meteor.userId()
+            }).name;
+            sub.toId = message.to;
+
+            var message = "Is composing this message: " + $('.input-box_text').val();
+            var type = 'info';
+
+            Meteor.call('notify', 'serverMessage:' + type, sub,
+                message, {
                     userCloseable: true,
                     timeout: 5000
                 });
-
-                return false;
-            }
-        }
-
-        //See that the user is typing
-        sub = {}
-        sub.subject = UserProfile.findOne({
-            userId: Meteor.userId()
-        }).name;
-        sub.toId = message.to;
-
-        var message = "Is typing... ";
-        var type = 'info';
-
-        Meteor.call('notify', 'serverMessage:' + type, sub, message, {
-            userCloseable: true,
-            timeout: 5000
-        });
-    }, 300)
+        }, 300)()
+    }
 
 });
