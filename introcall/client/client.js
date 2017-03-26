@@ -42,6 +42,11 @@ Router.route('/bookings', function(){
         })
     }
 
+    Meteor.call('timekit.calendarList', function(err, result){
+        if (err) alert(err);
+        console.log(result);
+    })
+
     this.render('bookings', {
         data: function(){
             return {
@@ -64,6 +69,19 @@ Template.registerHelper('curProfile', function() {
     })
 })
 
+
+Template.registerHelper('isEqual', function(a, b) {
+    return a == b;
+})
+
+Template.bookings.events({
+    'click .setdef': function(event){
+        Meteor.call('user.updateProfile', {timekitDefaultCal: event.target.id}, false, function(err, result){
+            if(err) alert(err);
+        })
+    }
+})
+
 Template.registerHelper('currentRouteIs', function (route) { 
   return Router.current().route.getName() === route; 
 });
@@ -83,13 +101,15 @@ Template.meet.onRendered(function() {
         var p = UserProfile.findOne({
             userId: Iron.controller().getParams().userid
         })
-        if (p && p.timekitApiToken) {
+        if (p && p.timekitDefaultCal) {
+            t.timekitSdk.setUser(p.timekitApiEmail, p.timekitApiToken);
             t.init({
                 app: 'introcall-348',
-                email: p.email,
+                email: p.timekitApiEmail,
                 apiToken: p.timekitApiToken,
                 name: p.name,
-                avatar: p.avatarUrl
+                avatar: p.avatarUrl,
+                calendar: p.timekitDefaultCal
             })
         }
     })

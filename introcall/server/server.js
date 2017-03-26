@@ -1,3 +1,5 @@
+import timekit from 'timekit-sdk';
+
 Meteor.startup(() => {
     console.log('Introcall Server Started.');
 
@@ -22,7 +24,7 @@ Meteor.startup(() => {
     });
 
     Meteor.methods({
-        'user.updateProfile': function(profile) {
+        'user.updateProfile': function(profile, validate) {
             var currentUser = Meteor.userId();
             if (!currentUser) {
                 throw new Meteor.Error("not-logged-in",
@@ -31,17 +33,11 @@ Meteor.startup(() => {
             UserProfile.update({
                 userId: currentUser
             }, {
-                $set: {
-                    name: profile.name,
-                    userId: currentUser,
-                    currentLocation: profile.currentLocation,
-                    timezone: profile.timezone,
-                    phoneNumber: profile.phoneNumber,
-                    email: profile.email
-                }
+                $set: profile
             }, {
                 multi: false,
-                upsert: true
+                upsert: true,
+                validate: validate
             });
 
         },
@@ -63,19 +59,49 @@ Meteor.startup(() => {
                 throw new Meteor.Error("not-logged-in",
                     "You're not logged-in.");
             }
-            
-            UserProfile.update({
-                userId: currentUser
-            }, {
-                $set: {
-                    timekitApiToken: data.token,
-                    timekitApiEmail: data.email
-                }
-            }, {
-                multi: false,
-                upsert: false
-            });
 
+            timekit.setUser(data.email, data.token);
+            timekit.accountSync().then(function(resp) {
+                UserProfile.update({
+                    userId: currentUser
+                }, {
+                    $set: {
+                        timekitApiToken: data.token,
+                        timekitApiEmail: data.email
+                    }
+                }, {
+                    multi: false,
+                    upsert: false
+                });
+            });
+        },
+
+        'timekit.calendarList': function(data) {
+            var currentUser = Meteor.userId();
+            if (!currentUser) {
+                throw new Meteor.Error("not-logged-in",
+                    "You're not logged-in.");
+            }
+
+            var p = UserProfile.findOne({userId: currentUser});
+
+            timekit.setUser(p.timekitApiEmail, p.timekitApiToken);
+
+            timekit.getCalendars().then(function(resp) {
+                UserProfile.update({
+                    userId: currentUser
+                }, {
+                    $set: {
+                        timekitCalendars: resp.data
+                    }
+                }, {
+                    multi: false,
+                }, function(error, result){
+                    console.log(error);
+                    console.log(result);
+                });
+            })
         }
+
     });
 });

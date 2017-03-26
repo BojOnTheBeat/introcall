@@ -9,6 +9,7 @@
     "gulp": "^3.9.1",
     "meteor-node-stubs": "~0.2.4",
     "semantic-ui": "^2.2.9",
+    "timekit-sdk": "^1.6.1",
     "timezones.json": "^1.1.0",
     "twilio-video": "^1.0.0-beta4"
   }

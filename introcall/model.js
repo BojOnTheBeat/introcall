@@ -71,6 +71,17 @@ UserProfile.schema = new SimpleSchema({
         optional: true
     },
 
+    timekitDefaultCal: {
+        type: String,
+        optional: true
+    },
+
+    timekitCalendars: {
+        type: [Object],
+        optional: true,
+        blackbox: true
+    },
+
     avatarUrl: {
         type: String,
         regEx: SimpleSchema.RegEx.Url, //TODO: need to prevent CSRF attacks on this
