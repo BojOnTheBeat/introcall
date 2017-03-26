@@ -78,7 +78,50 @@
     }
     ul.notifications {
             position: fixed;
-        }
+    }
+    .name {
+        font-weight: 900;
+        padding-right: .25rem;
+        color: #3d3c40 !important;
+        margin-left: 0;
+        font-style: normal;
+        text-decoration: none;
+    }
+    .timestamp {
+        text-align: left;
+        display: inline;
+        position: relative;
+        top: 0;
+        left: 0;
+        color: #babbbf;
+        font-size: 12px;
+        line-height: 1.2rem;
+        width: 36px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .message_content {
+        color: #8b898f;
+        font-style: italic;
+        display: block;
+        min-height: 1rem;
+    }
+
+    .single_message_container {
+        position: relative;
+        margin-top: .5rem;
+        padding: .25rem 2rem .1rem 3rem;
+        min-height: 36px;
+    }
+    .messages {
+        margin-left: 220px;
+        height: 300px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        
+        padding: 0 18px 1rem 1.5rem;
+    }
+
 
     @media only screen and (max-width: 700px) {
         .ui.fixed.menu {
@@ -273,19 +316,33 @@
 
 <template name="joincall">
     {{> notifications}}
-    <iframe src="https://appear.in/introcall.io-sandbox" width="800" height="640" frameborder="0"></iframe>
+    <iframe src="https://appear.in/introcall.io-sandbox" width="800" id= "appearin" height="640" frameborder="0"></iframe>
     <div class="container">
         <div class="row">
             <div class="messages-container">
-                <div class="messages">
+                <div class="messages ui floating message">
                     {{#if messages}}
                         {{#each messages}}
-                            <p>
+                            {{#if color owner}}
+                            <div class= "single_message_container ui floating message">
+                            <!-- <p> -->
                                 <span class="name">{{getName owner}}</span>
-                                >
-                                {{message}}
                                 <span class="timestamp">&ndash;{{timestamp}}</span> 
-                            </p>
+                                <span class="message_star"></span>
+                                <span class="message_content">{{message}}</span>
+                            <!-- </p> -->
+                            </div>
+
+                            {{else}}
+                            <div class= "single_message_container ui blue floating message">
+                            <!-- <p> -->
+                                <span class="name">{{getName owner}}</span>
+                                <span class="timestamp">&ndash;{{timestamp}}</span> 
+                                <span class="message_star"></span>
+                                <span class="message_content">{{message}}</span>
+                            <!-- </p> -->
+                            </div>
+                            {{/if}}
                         {{/each}}
                     {{/if}}
                 </div>

@@ -253,7 +253,14 @@ Template.joincall.helpers({
         return UserProfile.findOne({userId: id}).name;
 
 
-    }
+    },
+
+    color: function(messageOwnerId){
+        if (Meteor.userId() != messageOwnerId){
+            return true;
+        }
+
+    },
 
 
 });
@@ -284,7 +291,7 @@ Template.joincall.events({
 
             Meteor.call('notify', 'serverMessage:' + type, sub, message, {
                 userCloseable: true,
-                timeout: 10000
+                timeout: 5000
             });
 
     }
