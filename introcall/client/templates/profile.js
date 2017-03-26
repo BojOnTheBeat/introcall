@@ -34,6 +34,7 @@ Template.profile.events({
                 alert(err);
             } else {
                 alert('profile updated!');
+                Router.go("/");
             }
         });
         //Meteor update
