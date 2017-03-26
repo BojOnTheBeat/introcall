@@ -227,6 +227,7 @@ Template.profile.events({
 Template.joincall.onCreated(function() {
     this.autorun(() => {
         this.subscribe('messages');
+        this.subscribe('serverMessages');
     })
     
 });
@@ -272,8 +273,32 @@ Template.joincall.events({
             }
         });
 
+        //Send notification to server
+
+            sub = {}
+            sub.subject = "New Message";
+            sub.OwnerId = Meteor.userId();
+
+            var message = "From " + UserProfile.findOne({userId: Meteor.userId()}).name;
+            var type = 'success'; 
+
+            Meteor.call('notify', 'serverMessage:' + type, sub, message, {
+                userCloseable: true,
+                timeout: 10000
+            });
+
     }
 
 });
+
+
+
+// Listen for notifications from the server
+serverMessages.listen('serverMessage:success', function (subject, message, options) {
+    //Don't show notifications to sender
+    if (Meteor.userId() != subject.OwnerId){
+        Notifications.success(subject.subject, message, options);
+    }
+  });
 
 

@@ -17,6 +17,11 @@ Meteor.startup(() => {
         });
     });
 
+    // Meteor.publish('serverMessages', function() {
+    //     return serverMessages;
+    // });
+
+
     Meteor.publish('messages', function() {
         return Messages.find();
     });
@@ -76,6 +81,9 @@ Meteor.startup(() => {
                 upsert: false
             });
 
-        }
+        },
+        'notify': function () {
+            serverMessages.notify.apply(serverMessages, arguments);
+        },
     });
 });
