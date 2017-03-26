@@ -85,3 +85,11 @@ serverMessages.listen('serverMessage:success', function(subject, message, option
         Notifications.success(subject.subject, message, options);
     }
 });
+
+// Listen for notifications from the server
+serverMessages.listen('serverMessage:info', function(subject, message, options) {
+    //Don't show notifications to sender
+    if (Meteor.userId() == subject.toId) {
+        Notifications.info(subject.subject, message, options);
+    }
+});

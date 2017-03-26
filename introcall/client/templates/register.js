@@ -12,7 +12,7 @@ Template.register.events({
             if (error) {
                 console.log(error.reason); // Output error if registration fails
             } else {
-                Router.go("home"); // Redirect user if registration succeeds
+                Router.go("/profile"); // Redirect user if registration succeeds
             }
         });
 
