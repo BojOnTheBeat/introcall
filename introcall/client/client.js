@@ -33,9 +33,13 @@ Router.route('/joincall/:toid', {
 Router.route('/profile');
 Router.route('/bookings', function(){
     var q = this.params.query;
+    var con = this;
 
     if (q.token){
-        console.log(q);
+        Meteor.call('connectTimekit', {token: q.token, email: q.email}, function(err, result){
+            if(err) alert(err);
+            con.redirect('/bookings');
+        })
     }
 
     this.render('bookings', {
