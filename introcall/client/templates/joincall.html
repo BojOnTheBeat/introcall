@@ -16,7 +16,7 @@
                                     <span class="name">{{getName owner}}</span>
                                     <span class="timestamp">&ndash;{{timestamp}}</span>
                                     <span class="message_star"></span>
-                                    <span class="message_content">{{message}}</span> {{scroll}}
+                                    <span class="message_content">{{unescape message}}</span> {{scroll}}
                                 </div>
 
                             {{else}}
@@ -25,7 +25,7 @@
                                     <span class="name">{{getName owner}}</span>
                                     <span class="timestamp">&ndash;{{timestamp}}</span>
                                     <span class="message_star"></span>
-                                    <span class="message_content">{{message}}</span>
+                                    <span class="message_content">{{unescape message}}</span>
                                     <!-- </p> -->
                                     {{scroll}}
                                 </div>

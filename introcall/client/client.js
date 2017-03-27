@@ -92,8 +92,10 @@ serverMessages.listen('serverMessage:success', function(subject, message, option
 
 // Listen for notifications from the server
 serverMessages.listen('serverMessage:info', function(subject, message, options) {
-    //Don't show notifications to sender
+    //Only show notifications to intended recipient
     if (Meteor.userId() == subject.toId) {
+        //remove all info types first
+        // Notifications.remove({type: 'info'}, {multi:true});
         Notifications.info(subject.subject, message, options);
     }
 });

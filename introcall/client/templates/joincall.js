@@ -60,12 +60,16 @@ Template.joincall.helpers({
 
     },
 
+    unescape: function(message) {
+        return _.unescape(message);
+    },
+
 });
 
 Template.joincall.events({
     'keyup .input-box_text': function(e) {
         _.throttle(function() {
-            var inputVal = $('.input-box_text').val();
+            var inputVal = _.escape($('.input-box_text').val().trim());
             var message = {};
             message.to = Iron.controller().getParams().toid;
             message.owner = Meteor.userId();
@@ -76,7 +80,7 @@ Template.joincall.events({
 
                 if (charCode == 13) {
 
-                    message.message = $('.input-box_text').val();
+                    message.message = _.escape($('.input-box_text').val().trim());
                     e.stopPropagation();
                     Meteor.call('insertMessage', message, function(
                         err, result) {
@@ -117,8 +121,13 @@ Template.joincall.events({
             }).name;
             sub.toId = message.to;
 
-            var message = "Is composing this message: " + $('.input-box_text').val();
+            var message = "Is composing this message: " + _.escape($('.input-box_text').val().trim());
             var type = 'info';
+
+            // //remove all info types 
+            // Notifications.remove({type: 'info'});
+
+            Notifications.remove({type: 'info'}, {multi:true});
 
             Meteor.call('notify', 'serverMessage:' + type, sub,
                 message, {
