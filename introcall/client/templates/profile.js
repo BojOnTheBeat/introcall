@@ -25,7 +25,7 @@ Template.profile.events({
           .form({
             fields: {
               name     : 'empty',
-              email   : 'empty',
+              email   : 'email',
               currentLocation : 'empty',
               phoneNumber : 'empty',
             }
@@ -39,7 +39,6 @@ Template.profile.events({
         profile.email = $('[name=email]').val();
         profile.currentLocation = $('[name=currentLocation]').val();
         timezone = $('[name=timezone]').val();
-        //profile.timezone = new
         profile.phoneNumber = $('[name=phoneNumber]').val();
 
         Meteor.call('user.updateProfile', profile, function(err, result) {
