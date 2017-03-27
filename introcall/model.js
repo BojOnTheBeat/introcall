@@ -87,7 +87,7 @@ UserProfile.schema = new SimpleSchema({
         regEx: SimpleSchema.RegEx.Url, //TODO: need to prevent CSRF attacks on this
         label: "Avatar URL",
         autoValue: function() {
-            return 'http://placehold.it/120x120'
+            return 'https://api.adorable.io/avatars/285/' + Math.random().toString(36).substring(7) + '.png'
         }
     },
 
