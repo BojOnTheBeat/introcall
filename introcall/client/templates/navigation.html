@@ -4,6 +4,7 @@
             <a class="logocontainer header" href="/"><img src="/logo.png" id="logo" /></a>
             <a class="{{#if currentRouteIs 'home'}}active{{/if}} item" href="{{pathFor route='home'}}">Home - All Profiles</a>
             <a class="{{#if currentRouteIs 'bookings'}}active{{/if}} item" href="/bookings">My Bookings</a>
+            <a class="{{#if currentRouteIs 'profile'}}active{{/if}} item" href="/profile">My Profile</a>
             <div class="right item">
                 {{#if currentUser}}
                     <span>
