@@ -70,6 +70,10 @@ Template.registerHelper('curProfile', function() {
     })
 })
 
+Template.registerHelper('curMeteorUser', function() {
+    return Meteor.user();
+})
+
 Template.registerHelper('isEqual', function(a, b) {
     return a == b;
 })

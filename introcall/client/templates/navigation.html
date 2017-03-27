@@ -1,9 +1,7 @@
 <template name="navigation">
     <div class="ui container">
         <div class="ui large secondary inverted pointing menu">
-            <a class="toc item">
-                <i class="sidebar icon"></i>
-            </a>
+            <a class="logocontainer" href="/"><img src="/logo.png" id="logo"/></a>
             <a class="{{#if currentRouteIs 'home'}}active{{/if}} item" href="{{pathFor route='home'}}">Home - All Profiles</a>
             <a class="{{#if currentRouteIs 'bookings'}}active{{/if}} item" href="/bookings">My Bookings</a>
             <div class="right item">
@@ -41,6 +39,7 @@
                     <a class="ui inverted button logout">Logout</a>
                 {{else}}
                     <a class="ui inverted button" href="{{pathFor route='login'}}">Log in</a>
+                    &nbsp;
                     <a class="ui inverted button" href="{{pathFor route='register'}}">Sign Up</a>
                 {{/if}}
             </div>

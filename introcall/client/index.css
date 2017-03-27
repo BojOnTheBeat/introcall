@@ -186,3 +186,15 @@ ul.notifications {
     z-index: -1;
     background-color: black;
 }
+
+.logocontainer {
+  width: 200px;
+  margin-right: 1em;
+  vertical-align: bottom;
+}
+
+img {
+  display: inline-block;
+  width: 90%;
+  height: auto;
+}
