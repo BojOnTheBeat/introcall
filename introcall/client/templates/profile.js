@@ -19,6 +19,19 @@ Template.profile.helpers({
 
 Template.profile.events({
     'submit form': function(event) {
+        
+        //validation
+        $('.ui.form')
+          .form({
+            fields: {
+              name     : 'empty',
+              email   : 'empty',
+              currentLocation : 'empty',
+              phoneNumber : 'empty',
+            }
+          });
+
+
         event.preventDefault();
         var profile = {}
 
