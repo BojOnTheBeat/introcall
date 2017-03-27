@@ -147,6 +147,16 @@ ul.notifications {
     min-height: 41px !important;
     padding: 9px 5px 9px 8px;
 }
+.image-upload{  
+    float: right;
+    margin-top: 23px !important;
+    margin-bottom: -300px !important;
+    height: 263px;
+    width: 315px;
+}
+.container {
+    padding: 5em 0em;
+}
 
 
 @media only screen and (max-width: 700px) {

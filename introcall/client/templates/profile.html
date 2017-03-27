@@ -1,8 +1,61 @@
 <template name="profile">
     {{#if currentUser}}
-        <h2>Profile</h2>
 
-        <form class="profile">
+        <div class="ui text container">
+          
+        <form class="ui form">
+            <h1 class="ui header">Profile</h1>
+             
+            <!-- <div class="ui text container">
+              
+              <h1 class="ui header">Welcome Justin Jones</h1>  
+            <form class="ui form">
+                 <div class="ui image-upload segment">
+                  <img style="margin-bottom: 10px" class="ui medium rounded image" src="http://icons.indats.com/sewlong/justin.jpg">
+                   <a class="ui mini button">Remove</a>
+                   <a class="ui mini blue button">Upload</a>
+                </div>
+            </div> -->
+
+            <div class="ui image-upload segment">
+                  <img  class="ui fluid image" style="margin-bottom: 10px" src="{{formData.avatarUrl}}">
+                   <a class="ui mini button">Remove</a>
+                   <a class="ui mini blue button">Upload</a>
+                </div>
+
+          <div class="eight wide field">
+            <label>Name</label>
+            <input type="text" name="name" value={{formData.name}}>
+          </div>
+
+          <div class="eight wide field">
+            <label>Email Address</label>
+            <input type="email" name="email" value={{formData.email}}>
+          </div>
+          
+            <div class="eight wide field">
+            <label>Phone Number</label>
+            <input type="number" name="phoneNumber" value={{formData.phoneNumber}}>
+          </div>
+
+          <div class="eight wide field">
+            <label>Current Location</label>
+            <input type="text" name="currentLocation" value={{formData.currentLocation}}>
+          </div>
+
+          <div class="eight wide field">
+            <label>TimeZone</label>
+            <input type="text" name="timezone">
+          </div>
+
+          <input type="submit" class="ui huge save-button green button" value="Save">
+          
+
+
+        </form>
+        </div>
+
+        <!-- <form class="profile">
             <p>Name:
                 <input type="text" name="name" value= {{formData.name}}>
             </p>
@@ -22,7 +75,7 @@
             <p>
                 <input type="submit" value="Submit">
             </p>
-        </form>
+        </form> -->
     {{else}}
         <a class="ui inverted button" href="{{pathFor route='login'}}">Log in</a>
         <a class="ui inverted button" href="{{pathFor route='register'}}">Sign Up</a>
