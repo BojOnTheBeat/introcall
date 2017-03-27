@@ -5,20 +5,17 @@
         <div class="ui inverted vertical masthead center aligned segment" id="bigimg">
             {{> navigation}}
 
-            <video class="video-background" 
-            no-controls autoplay loop 
-            poster="https://d2c6jjk3vnoatm.cloudfront.net/spree/option_values/23/mini/black.png?1461132935">
+            <video class="video-background" no-controls autoplay loop poster="https://d2c6jjk3vnoatm.cloudfront.net/spree/option_values/23/mini/black.png?1461132935">
                 <source src="/videos/home/combined.mov" type="video/quicktime">
                 <source src="/videos/home/combined.mp4" type="video/mp4">
             </video>
 
             <div class="ui text container">
-                            
 
                 <h1 class="ui inverted header">
                     Introcall.io
                 </h1>
-                
+
                 {{#if curMeteorUser}}
                     <h2>Thank you for signing up, and welcome! Start searching for people to Introcall™ below.</h2>
                 {{else}}
@@ -68,14 +65,11 @@
                             </div>
                         </div>
                         <div class="extra content">
-                            <a class="ui labeled button" href="/meet/{{cp.userId}}">
-                                <div class="ui red button">
-                                    <i class="phone icon"></i> Set up a call
-                                </div>
-                                <a class="ui basic red left pointing label">
-                                    1,048
-                                </a>
-                            </a>
+                            <div class="ui buttons">
+                                <a class="ui red button" href="/meet/{{cp.userId}}">Setup a meeting</a>
+                                <div class="or"></div>
+                                <a class="ui positive button" href="/joincall/{{cp.userId}}">Join callroom</a>
+                            </div>
                         </div>
                     </div>
                 {{/each}}

@@ -189,12 +189,10 @@ ul.notifications {
 
 .logocontainer {
   width: 200px;
-  margin-right: 1em;
-  vertical-align: bottom;
 }
 
 img {
+    width: 90%;
   display: inline-block;
-  width: 90%;
   height: auto;
 }
