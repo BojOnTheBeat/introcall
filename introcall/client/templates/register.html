@@ -1,15 +1,31 @@
 <template name="register">
+    <div class="column lform">
+        <h2 class="ui image header">
+      <div class="content">
+        Sign up for Introcall.io
+      </div>
+    </h2>
+        <form class="ui big form login">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="email" placeholder="E-mail address">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <input type="submit" class="ui fluid large teal submit button" value="Register">
+            </div>
+            <div class="ui error message"></div>
+        </form>
 
-    <h2>Sign Up</h2>
-    <form class="register">
-        <p>Email:
-            <input type="email" name="email">
-        </p>
-        <p>Password:
-            <input type="password" name="password">
-        </p>
-        <p>
-            <input type="submit" value="Register">
-        </p>
-    </form>
+        <div class="ui message">
+            Already have an account? <a href="/login">Sign Up</a>
+        </div>
+    </div>
 </template>

@@ -196,3 +196,8 @@ img {
   display: inline-block;
   height: auto;
 }
+
+.lform {
+    display: block;
+    max-width: 500px;
+}
