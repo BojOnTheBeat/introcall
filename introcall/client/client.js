@@ -35,9 +35,12 @@ Router.route('/docs', function() {
                     dlist: data['api-routes']
                 }
             }
+
         })
     })
 });
+
+
 Router.route('/joincall/:toid', {
     layoutTemplate: 'main',
     template: 'joincall'
