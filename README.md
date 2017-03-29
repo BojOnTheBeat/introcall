@@ -7,6 +7,10 @@ Talk to a human.™
 
 https://alpha.introcall.io/ (works on the latest version of Google Chrome desktop only)
 
+## Video Demo URL
+
+https://youtu.be/otQV-PXVirA
+
 ## Team
 - Isa Hassen
 - Bolaji Fatade
