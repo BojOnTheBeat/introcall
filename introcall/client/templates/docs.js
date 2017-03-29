@@ -36,8 +36,7 @@ Template.docs.helpers({
                 'get' : 'Get a list of all users'
             },
             '/publications/keywords.public': {
-                'get' : 'Get a list of all keywords',
-                'get' : '\n Response: 200\n \t content-type: application/json <br/> body: Keyword object \n \t _id: keyword id \n word: (string) actaul keyword string '
+                'get' : 'Get a list of all keywords \n Response: 200 \n \t content-type: application/json \n \t body: Keyword object \n \t \t_id: keyword id \n \t \t word: (string) actaul keyword string',
             },
             '/publications/user.private': {
                 'get' : '????'
