@@ -2,7 +2,15 @@
     <h1>REST API Docs</h1>
 
     {{#each route in dlist}}
-        <h2>Endpoint: {{route._id}}</h2>
-        
+        {{#each method in route.methods}}
+            <div class="ui divided selection list">
+                <h2 class="item">
+                    <div class="ui red horizontal label" style="text-transform: uppercase;">{{method}}</div>
+                    {{route.path}}
+                </h2>
+            </div>
+            
+            <div class="ui black">{{getComment route._id method}}</div>
+        {{/each}}
     {{/each}}
 </template>
