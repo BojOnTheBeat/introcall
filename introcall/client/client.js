@@ -26,6 +26,18 @@ Router.configure({
 Router.route('/register');
 Router.route('/login');
 Router.route('/dashboard');
+Router.route('/docs', function() {
+    var t = this;
+    $.getJSON('/publications/api-routes', function(data){
+        t.render('docs', {
+            data: function(){
+                return {
+                    dlist: data['api-routes']
+                }
+            }
+        })
+    })
+});
 Router.route('/joincall/:toid', {
     layoutTemplate: 'main',
     template: 'joincall'

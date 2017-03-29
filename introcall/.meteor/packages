@@ -30,3 +30,4 @@ momentjs:moment
 gfk:notifications
 gfk:server-messages
 simple:rest
+http
