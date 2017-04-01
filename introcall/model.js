@@ -10,7 +10,7 @@ Keywords.schema = new SimpleSchema({
         type: String,
         min: 2,
         max: 15,
-        index:true,
+        index: true,
         unique: true
     }
 })
@@ -87,7 +87,8 @@ UserProfile.schema = new SimpleSchema({
         regEx: SimpleSchema.RegEx.Url, //TODO: need to prevent CSRF attacks on this
         label: "Avatar URL",
         autoValue: function() {
-            return 'https://api.adorable.io/avatars/285/' + Math.random().toString(36).substring(7) + '.png'
+            return 'https://api.adorable.io/avatars/285/' + Math.random().toString(
+                36).substring(7) + '.png'
         }
     },
 
@@ -97,38 +98,27 @@ UserProfile.attachSchema(UserProfile.schema);
 
 Messages.schema = new SimpleSchema({
     'to': {
-    type: String,
-    label: 'The ID of the user this message was sent directly to.',
-    regEx: SimpleSchema.RegEx.Id
+        type: String,
+        label: 'The ID of the user this message was sent directly to.',
+        regEx: SimpleSchema.RegEx.Id
     },
 
     'owner': {
-    type: String,
-    label: 'The ID of the user that created this message.',
-    regEx: SimpleSchema.RegEx.Id
+        type: String,
+        label: 'The ID of the user that created this message.',
+        regEx: SimpleSchema.RegEx.Id
     },
 
     'timestamp': {
-    type: Date,
-    label: 'The date and time this message was created.',
+        type: Date,
+        label: 'The date and time this message was created.',
     },
 
     'message': {
-    type: String,
-    label: 'The content of this message.',
-    min: 1,
+        type: String,
+        label: 'The content of this message.',
+        min: 1,
     }
 });
 
-Messages.attachSchema( Messages.schema );
-
-
-
-
-
-
-
-
-
-
-
+Messages.attachSchema(Messages.schema);
