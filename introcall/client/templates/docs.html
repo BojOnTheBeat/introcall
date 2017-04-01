@@ -1,16 +1,143 @@
 <template name="docs">
     <h1>REST API Docs</h1>
 
+    <p>A list of types of data definitions and API endpoints for interacting with Introcall.io</p>
+
+    <h2> Data Definition: Keywords  </h2>
+    <pre>
+Keywords.schema = new SimpleSchema({
+    word: {
+        type: String,
+        min: 2,
+        max: 15,
+        index:true,
+        unique: true
+    }
+})
+    </pre>
+
+    <h2>Data Definition: UserProfile </h2>
+    <pre>
+UserProfile.schema = new SimpleSchema({
+    userId: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id
+    },
+
+    keywords: {
+        type: [String],
+        minCount: 1,
+        optional: true
+    },
+
+    name: { // Split into first and last names?
+        type: String,
+        min: 4
+
+    },
+
+    email: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Email
+
+    },
+
+    currentLocation: {
+        type: String,
+        max: 300
+    },
+
+    timezone: {
+        type: Object,
+        allowedValues: VALIDTIMEZONES,
+        optional: true
+    },
+
+    phoneNumber: {
+        type: String, //Is there a better way to validate this?
+        min: 10
+
+    },
+
+    timekitApiToken: {
+        type: String,
+        min: 5,
+        max: 300,
+        optional: true
+    },
+
+    timekitApiEmail: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Email,
+        optional: true
+    },
+
+    timekitDefaultCal: {
+        type: String,
+        optional: true
+    },
+
+    timekitCalendars: {
+        type: [Object],
+        optional: true,
+        blackbox: true
+    },
+
+    avatarUrl: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Url, //TODO: need to prevent CSRF attacks on this
+        label: "Avatar URL",
+        autoValue: function() {
+            return 'https://api.adorable.io/avatars/285/' + Math.random().toString(36).substring(7) + '.png'
+        }
+    },
+
+});
+    </pre>
+
+    <h2>Data Definition: Messages</h2>
+
+    <pre>
+Messages.schema = new SimpleSchema({
+    'to': {
+        type: String,
+        label: 'The ID of the user this message was sent directly to.',
+        regEx: SimpleSchema.RegEx.Id
+    },
+
+    'owner': {
+        type: String,
+        label: 'The ID of the user that created this message.',
+        regEx: SimpleSchema.RegEx.Id
+    },
+
+    'timestamp': {
+        type: Date,
+        label: 'The date and time this message was created.',
+    },
+
+    'message': {
+        type: String,
+        label: 'The content of this message.',
+        min: 1,
+    }
+});
+</pre>
+
+    <h1>API Endpoints</h1>
+
     {{#each route in dlist}}
         {{#each method in route.methods}}
-            <div class="ui divided selection list">
-                <h2 class="item">
+            {{#unless isEqual method 'options'}}
+                <div class="ui divided selection list">
+                    <h2 class="item">
                     <div class="ui red horizontal label" style="text-transform: uppercase;">{{method}}</div>
                     {{route.path}}
                 </h2>
-            </div>
-            
-            <div class="ui black"> <pre> {{getComment route._id method}}</pre></div>
+                </div>
+
+                <div class="ui black"> <pre> {{getComment route._id method}}</pre></div>
+            {{/unless}}
         {{/each}}
     {{/each}}
 </template>
